@@ -3,13 +3,12 @@ import PhotoPlaceholder from "@/components/PhotoPlaceholder";
 const MOMENTS: { title: string; description: string; tone: "sage" | "terracotta" | "peach" }[] = [
   { title: "Coffee and conversation", description: "An easy start to the day, on your own schedule.", tone: "peach" },
   { title: "Movement and walking", description: "Time outside, stretching, or a walk with a friend.", tone: "sage" },
-  { title: "Gardening", description: "Hands in soil, tending something that grows.", tone: "sage" },
+  { title: "Gardening and outdoor time", description: "Hands in soil, fresh air, and natural light, weather permitting.", tone: "sage" },
   { title: "Art and creative work", description: "Painting, drawing, and projects with no wrong answer.", tone: "terracotta" },
   { title: "Music", description: "Singing, listening, and moving to songs that matter.", tone: "peach" },
   { title: "Cooking or food preparation", description: "Simple, purposeful kitchen tasks done together.", tone: "terracotta" },
   { title: "Purposeful household or community roles", description: "Folding, sorting, setting tables, real contributions.", tone: "sage" },
   { title: "Quiet time", description: "A calm space to rest, read, or simply sit.", tone: "peach" },
-  { title: "Outdoor time", description: "Fresh air and natural light, weather permitting.", tone: "sage" },
   { title: "Small-group and self-directed activities", description: "Join a group, or choose to do your own thing.", tone: "terracotta" },
 ];
 
