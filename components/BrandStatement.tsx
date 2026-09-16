@@ -1,39 +1,55 @@
-// The three-part brand statement. Wording is fixed and must not be
-// reworded or shortened: "Purposeful days. Meaningful connection.
-// Dependable respite." Each phrase maps to part of the brand story:
-// the person attending, the relationships and community around them,
-// and the relief it gives the family caring for them.
+// The three-part brand statement: "Purposeful days · Meaningful connection
+// · Dependable respite." Each phrase maps to part of the brand story: the
+// person attending, the relationships and community around them, and the
+// relief it gives the family caring for them. Rendered with middot
+// separators (no periods) everywhere it appears.
 
 const PHRASES = [
   {
-    text: "Purposeful days.",
+    text: "Purposeful days",
     audience: "For the person who attends",
   },
   {
-    text: "Meaningful connection.",
+    text: "Meaningful connection",
     audience: "For relationships and belonging",
   },
   {
-    text: "Dependable respite.",
+    text: "Dependable respite",
     audience: "For the family who cares for them",
   },
 ] as const;
 
-/** Compact single line for use directly under the hero copy. */
+const FULL_STATEMENT = PHRASES.map((p) => p.text).join(" · ");
+
+/** Renders the phrases joined by middots, as a single accessible text node. */
+function JoinedPhrases({ dotClassName }: { dotClassName: string }) {
+  return (
+    <>
+      <span className="sr-only">Our promise: {FULL_STATEMENT}</span>
+      <span aria-hidden="true">
+        {PHRASES.map((phrase, i) => (
+          <span key={phrase.text}>
+            {phrase.text}
+            {i < PHRASES.length - 1 && <span className={dotClassName}> · </span>}
+          </span>
+        ))}
+      </span>
+    </>
+  );
+}
+
+/**
+ * Compact single line for use directly under the hero copy. Sized to stay
+ * on one line: full size while the hero is a single stacked column, and a
+ * step smaller at the `lg` breakpoint where the hero becomes two columns
+ * and this sits in the narrower left half.
+ */
 export function BrandStatementInline({ className = "" }: { className?: string }) {
   return (
-    <p className={`text-xl font-semibold text-sage-700 sm:text-2xl ${className}`}>
-      <span className="sr-only">Our promise: </span>
-      {PHRASES.map((phrase, i) => (
-        <span key={phrase.text}>
-          {phrase.text}
-          {i < PHRASES.length - 1 && (
-            <span className="mx-2 text-terracotta-500" aria-hidden="true">
-              ·
-            </span>
-          )}
-        </span>
-      ))}
+    <p
+      className={`whitespace-nowrap text-lg font-semibold tracking-tight text-sage-700 sm:text-xl lg:text-sm lg:tracking-normal xl:text-base ${className}`}
+    >
+      <JoinedPhrases dotClassName="text-terracotta-500" />
     </p>
   );
 }
@@ -48,7 +64,7 @@ export function BrandStatementBanner() {
         </span>
 
         <p className="mx-auto mt-6 max-w-4xl text-3xl font-semibold leading-snug sm:text-4xl lg:text-5xl">
-          Purposeful days. Meaningful connection. Dependable respite.
+          <JoinedPhrases dotClassName="text-terracotta-300" />
         </p>
 
         <div className="mx-auto mt-10 grid max-w-4xl gap-8 sm:grid-cols-3">
@@ -68,7 +84,7 @@ export function BrandStatementBanner() {
 export function BrandStatementFooter({ className = "" }: { className?: string }) {
   return (
     <p className={`text-base text-cream-100/80 ${className}`}>
-      Purposeful days. Meaningful connection. Dependable respite.
+      <JoinedPhrases dotClassName="text-terracotta-400" />
     </p>
   );
 }
