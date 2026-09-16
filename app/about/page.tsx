@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import PhotoPlaceholder from "@/components/PhotoPlaceholder";
+import Image from "next/image";
+import elvinaPhoto from "@/public/founders/elvina-hewitt.jpg";
+import robbinPhoto from "@/public/founders/robbin-hewitt.jpg";
 
 export const metadata: Metadata = {
   title: "About",
@@ -17,10 +19,12 @@ export default function AboutPage() {
         </h1>
 
         <div className="mt-12 grid gap-12 lg:grid-cols-2">
-          <PhotoPlaceholder
-            label="Portrait of Elvina Hewitt, warm and professional, non-clinical setting"
-            tone="sage"
-            aspect="aspect-[4/5]"
+          <Image
+            src={elvinaPhoto}
+            alt="Elvina Hewitt, RN, MBA, co-founder of The Day House"
+            className="aspect-[4/5] w-full rounded-xl2 object-cover"
+            placeholder="blur"
+            sizes="(min-width: 1024px) 50vw, 100vw"
           />
           <div className="flex flex-col justify-center">
             <h2 className="text-2xl font-semibold">Elvina Hewitt, RN, MBA</h2>
@@ -46,11 +50,12 @@ export default function AboutPage() {
               reliably, day after day, for the families who count on it.
             </p>
           </div>
-          <PhotoPlaceholder
-            label="Portrait of Robbin Hewitt, warm and approachable, non-clinical setting"
-            tone="terracotta"
-            aspect="aspect-[4/5]"
-            className="order-1 lg:order-2"
+          <Image
+            src={robbinPhoto}
+            alt="Robbin Hewitt, co-founder of The Day House"
+            className="order-1 aspect-[4/5] w-full rounded-xl2 object-cover lg:order-2"
+            placeholder="blur"
+            sizes="(min-width: 1024px) 50vw, 100vw"
           />
         </div>
 
