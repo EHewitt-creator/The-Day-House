@@ -18,14 +18,14 @@ export default function Hero() {
           </h1>
 
           <p className="mt-6 text-xl text-ink-700">
-            The Day House is a new daytime community for adults living with
-            memory loss and dementia, coming soon to the Treasure Valley.
+            The Day House is a new kind of daytime community for adults
+            living with memory loss and dementia.
           </p>
 
           <p className="mt-4 text-lg text-ink-700">
-            We&rsquo;re creating a warm, adult place built around purpose,
-            movement, creativity, choice, and real relationships, with
-            dependable daytime support for families.
+            A place built around good days, meaningful relationships,
+            movement, purpose, laughter, and the freedom to keep doing the
+            things that make life feel like life.
           </p>
 
           <div className="mt-8 flex flex-col gap-4 sm:flex-row">

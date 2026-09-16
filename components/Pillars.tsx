@@ -69,12 +69,14 @@ export default function Pillars() {
         <div className="max-w-2xl">
           <span className="eyebrow">Our Approach</span>
           <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">
-            This isn&rsquo;t about filling time. It&rsquo;s about making the
-            day matter.
+            Let&rsquo;s make the day matter.
           </h2>
           <p className="mt-5 text-lg text-ink-700">
-            The Day House focuses on what someone can still do, enjoy,
-            choose, and contribute, not only on what they can no longer do.
+            At The Day House, we focus on what remains possible.
+          </p>
+          <p className="mt-3 text-lg text-ink-700">
+            Our approach is built around meaningful engagement, independence,
+            and respect for the person behind the diagnosis.
           </p>
         </div>
 
