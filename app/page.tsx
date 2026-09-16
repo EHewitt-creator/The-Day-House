@@ -2,11 +2,10 @@ import Hero from "@/components/Hero";
 import Pillars from "@/components/Pillars";
 import DayInLife from "@/components/DayInLife";
 import FamilyValue from "@/components/FamilyValue";
-import FoundersPreview from "@/components/FoundersPreview";
 import FamilyInterestSection from "@/components/family-interest/FamilyInterestSection";
-import CareersSection from "@/components/CareersSection";
-import { BrandStatementBanner } from "@/components/BrandStatement";
-import CommunityContact from "@/components/CommunityContact";
+import FoundersPreview from "@/components/FoundersPreview";
+import SecondaryPathways from "@/components/SecondaryPathways";
+import ClosingCta from "@/components/ClosingCta";
 
 export default function HomePage() {
   return (
@@ -15,11 +14,10 @@ export default function HomePage() {
       <Pillars />
       <DayInLife />
       <FamilyValue />
-      <FoundersPreview />
       <FamilyInterestSection />
-      <CareersSection />
-      <BrandStatementBanner />
-      <CommunityContact />
+      <FoundersPreview />
+      <SecondaryPathways />
+      <ClosingCta />
     </>
   );
 }

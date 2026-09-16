@@ -2,6 +2,7 @@
 
 import type { FamilyInterestStepTwo, ServiceFeatureOption, BarrierOption } from "@/types/leads";
 import {
+  DAYS_OF_WEEK,
   PREFERRED_HOURS_OPTIONS,
   SERVICE_FEATURE_OPTIONS,
   BARRIER_OPTIONS,
@@ -18,6 +19,10 @@ function toggleValue<T extends string>(list: T[], value: T): T[] {
 }
 
 export default function FamilyInterestStepTwo({ value, onChange }: Props) {
+  function toggleDay(day: string) {
+    onChange({ preferredDaysOfWeek: toggleValue(value.preferredDaysOfWeek, day) });
+  }
+
   return (
     <div className="space-y-10">
       <div>
@@ -31,16 +36,67 @@ export default function FamilyInterestStepTwo({ value, onChange }: Props) {
       </div>
 
       <fieldset>
+        <legend className="field-label">A. Which days of the week would you likely need?</legend>
+        <div className="flex flex-wrap gap-2">
+          {DAYS_OF_WEEK.map((day) => {
+            const active = value.preferredDaysOfWeek.includes(day);
+            return (
+              <button
+                key={day}
+                type="button"
+                onClick={() => toggleDay(day)}
+                aria-pressed={active}
+                className={`min-h-[44px] rounded-full border-2 px-4 py-2 text-sm font-semibold transition ${
+                  active
+                    ? "border-sage-600 bg-sage-600 text-cream"
+                    : "border-ink/15 bg-cream-50 text-ink-700 hover:border-sage-300"
+                }`}
+              >
+                {day}
+              </button>
+            );
+          })}
+        </div>
+      </fieldset>
+
+      <div className="grid gap-6 sm:grid-cols-2">
+        <div>
+          <label htmlFor="preferredArrivalTime" className="field-label">
+            B. Preferred arrival time
+          </label>
+          <input
+            id="preferredArrivalTime"
+            type="time"
+            className="field-input"
+            value={value.preferredArrivalTime}
+            onChange={(e) => onChange({ preferredArrivalTime: e.target.value })}
+          />
+        </div>
+        <div>
+          <label htmlFor="preferredPickupTime" className="field-label">
+            Preferred pickup time
+          </label>
+          <input
+            id="preferredPickupTime"
+            type="time"
+            className="field-input"
+            value={value.preferredPickupTime}
+            onChange={(e) => onChange({ preferredPickupTime: e.target.value })}
+          />
+        </div>
+      </div>
+
+      <fieldset>
         <legend className="field-label">
-          A. Which hours would be most useful to your family?
+          C. Which hours would be most useful to your family?
         </legend>
         <div className="space-y-2">
           {PREFERRED_HOURS_OPTIONS.map((opt) => (
-            <label key={opt.value} className="flex items-center gap-3 text-base text-ink-700">
+            <label key={opt.value} className="flex min-h-[44px] items-center gap-3 text-base text-ink-700">
               <input
                 type="radio"
                 name="preferredHours"
-                className="h-5 w-5 border-ink/30 text-sage-600 focus:ring-sage-500"
+                className="h-5 w-5 shrink-0 border-ink/30 text-sage-600 focus:ring-sage-500"
                 checked={value.preferredHours === opt.value}
                 onChange={() => onChange({ preferredHours: opt.value })}
               />
@@ -61,14 +117,14 @@ export default function FamilyInterestStepTwo({ value, onChange }: Props) {
 
       <fieldset>
         <legend className="field-label">
-          B. Which services or features would matter most? (select all that apply)
+          D. Which services or features would matter most? (select all that apply)
         </legend>
         <div className="grid gap-2 sm:grid-cols-2">
           {SERVICE_FEATURE_OPTIONS.map((opt) => (
-            <label key={opt.value} className="flex items-start gap-3 text-base text-ink-700">
+            <label key={opt.value} className="flex min-h-[44px] items-start gap-3 text-base text-ink-700">
               <input
                 type="checkbox"
-                className="mt-0.5 h-5 w-5 rounded border-ink/30 text-sage-600 focus:ring-sage-500"
+                className="mt-0.5 h-5 w-5 shrink-0 rounded border-ink/30 text-sage-600 focus:ring-sage-500"
                 checked={value.servicesWanted.includes(opt.value as ServiceFeatureOption)}
                 onChange={() =>
                   onChange({
@@ -93,14 +149,14 @@ export default function FamilyInterestStepTwo({ value, onChange }: Props) {
 
       <fieldset>
         <legend className="field-label">
-          C. What would make it difficult for your family to use a program like The Day House? (select all that apply)
+          E. What would make it difficult for your family to use a program like The Day House? (select all that apply)
         </legend>
         <div className="grid gap-2 sm:grid-cols-2">
           {BARRIER_OPTIONS.map((opt) => (
-            <label key={opt.value} className="flex items-start gap-3 text-base text-ink-700">
+            <label key={opt.value} className="flex min-h-[44px] items-start gap-3 text-base text-ink-700">
               <input
                 type="checkbox"
-                className="mt-0.5 h-5 w-5 rounded border-ink/30 text-sage-600 focus:ring-sage-500"
+                className="mt-0.5 h-5 w-5 shrink-0 rounded border-ink/30 text-sage-600 focus:ring-sage-500"
                 checked={value.barriers.includes(opt.value as BarrierOption)}
                 onChange={() =>
                   onChange({ barriers: toggleValue(value.barriers, opt.value as BarrierOption) })
@@ -123,18 +179,18 @@ export default function FamilyInterestStepTwo({ value, onChange }: Props) {
 
       <fieldset>
         <legend className="field-label">
-          D. For a full day of high-quality, dementia-informed daytime
+          F. For a full day of high-quality, dementia-informed daytime
           support, including activities, lunch, snacks, and personal
           assistance as needed, which daily price range would feel realistic
           for your family?
         </legend>
         <div className="space-y-2">
           {PRICE_RANGE_OPTIONS.map((opt) => (
-            <label key={opt.value} className="flex items-center gap-3 text-base text-ink-700">
+            <label key={opt.value} className="flex min-h-[44px] items-center gap-3 text-base text-ink-700">
               <input
                 type="radio"
                 name="realisticPriceRange"
-                className="h-5 w-5 border-ink/30 text-sage-600 focus:ring-sage-500"
+                className="h-5 w-5 shrink-0 border-ink/30 text-sage-600 focus:ring-sage-500"
                 checked={value.realisticPriceRange === opt.value}
                 onChange={() => onChange({ realisticPriceRange: opt.value })}
               />
@@ -159,7 +215,7 @@ export default function FamilyInterestStepTwo({ value, onChange }: Props) {
 
       <div>
         <label htmlFor="whatWouldBeValuable" className="field-label">
-          E. What would make The Day House especially valuable to your family?
+          G. What would make The Day House especially valuable to your family?
         </label>
         <textarea
           id="whatWouldBeValuable"
@@ -172,16 +228,16 @@ export default function FamilyInterestStepTwo({ value, onChange }: Props) {
 
       <fieldset>
         <legend className="field-label">
-          F. Would you be willing to participate in a 15-minute conversation
+          H. Would you be willing to participate in a 15-minute conversation
           as we design the program?
         </legend>
         <div className="flex gap-6">
           {(["yes", "no"] as const).map((option) => (
-            <label key={option} className="flex items-center gap-2 text-base capitalize text-ink-700">
+            <label key={option} className="flex min-h-[44px] items-center gap-2 text-base capitalize text-ink-700">
               <input
                 type="radio"
                 name="willingToTalk"
-                className="h-5 w-5 border-ink/30 text-sage-600 focus:ring-sage-500"
+                className="h-5 w-5 shrink-0 border-ink/30 text-sage-600 focus:ring-sage-500"
                 checked={value.willingToTalk === option}
                 onChange={() => onChange({ willingToTalk: option })}
               />

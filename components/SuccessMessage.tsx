@@ -8,7 +8,7 @@ export default function SuccessMessage({
   return (
     <div
       role="status"
-      className="rounded-xl2 border border-sage-200 bg-sage-50 p-8 text-center"
+      className="rounded-xl2 border border-sage-100 bg-sage-50 p-8 text-center"
     >
       <svg
         width="40"

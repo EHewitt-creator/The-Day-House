@@ -39,44 +39,19 @@ function JoinedPhrases({ dotClassName }: { dotClassName: string }) {
 }
 
 /**
- * Compact single line for use directly under the hero copy. Sized to stay
- * on one line: full size while the hero is a single stacked column, and a
- * step smaller at the `lg` breakpoint where the hero becomes two columns
- * and this sits in the narrower left half.
+ * Compact line for use directly under the hero copy. Mobile-first: wraps
+ * freely and starts small on narrow phones, where forcing this long phrase
+ * onto one line would overflow the screen. It only gets locked to a single
+ * line at the `lg` breakpoint, where the hero becomes two columns and this
+ * sits in a narrower but still comfortably wide left half.
  */
 export function BrandStatementInline({ className = "" }: { className?: string }) {
   return (
     <p
-      className={`whitespace-nowrap text-lg font-semibold tracking-tight text-sage-700 sm:text-xl lg:text-sm lg:tracking-normal xl:text-base ${className}`}
+      className={`text-base font-semibold tracking-tight text-sage-700 sm:text-lg md:text-xl lg:whitespace-nowrap lg:text-sm lg:tracking-normal xl:text-base ${className}`}
     >
       <JoinedPhrases dotClassName="text-terracotta-500" />
     </p>
-  );
-}
-
-/** Full-width, three-column banner for a prominent placement near the bottom of the page. */
-export function BrandStatementBanner() {
-  return (
-    <section className="bg-sage-700 text-cream-100">
-      <div className="section !py-16 text-center lg:!py-20">
-        <span className="inline-block rounded-full bg-cream-100/10 px-4 py-1.5 text-sm font-semibold tracking-wide text-terracotta-400">
-          Our Promise
-        </span>
-
-        <p className="mx-auto mt-6 max-w-4xl text-3xl font-semibold leading-snug sm:text-4xl lg:text-5xl">
-          <JoinedPhrases dotClassName="text-terracotta-300" />
-        </p>
-
-        <div className="mx-auto mt-10 grid max-w-4xl gap-8 sm:grid-cols-3">
-          {PHRASES.map((phrase) => (
-            <div key={phrase.text}>
-              <p className="text-lg font-semibold text-terracotta-300">{phrase.text}</p>
-              <p className="mt-1 text-sm text-cream-100/75">{phrase.audience}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
   );
 }
 

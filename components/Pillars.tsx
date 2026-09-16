@@ -1,35 +1,64 @@
-const PILLARS: { title: string; description: string }[] = [
+type Tone = "terracotta" | "sage";
+
+const TONE_CLASSES: Record<Tone, string> = {
+  terracotta: "bg-terracotta-100 text-terracotta-700",
+  sage: "bg-sage-100 text-sage-700",
+};
+
+const PILLARS: { title: string; description: string; tone: Tone; icon: React.ReactNode }[] = [
   {
     title: "Purpose",
-    description: "Real roles and reasons to show up, not idle time to fill.",
+    description: "Real roles, meaningful activity, and reasons to participate.",
+    tone: "terracotta",
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="1.6" />
+        <circle cx="12" cy="12" r="3.5" stroke="currentColor" strokeWidth="1.6" />
+        <path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      </svg>
+    ),
   },
   {
     title: "Connection",
-    description: "Conversation and friendship with people and staff who know you.",
-  },
-  {
-    title: "Movement",
-    description: "Walking, stretching, and activity built into an ordinary day.",
-  },
-  {
-    title: "Creativity",
-    description: "Art, music, and hands-on work that make room for expression.",
+    description: "Friendship, conversation, belonging, and being known.",
+    tone: "sage",
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="9" cy="10" r="3.2" stroke="currentColor" strokeWidth="1.6" />
+        <circle cx="16.5" cy="12.5" r="2.6" stroke="currentColor" strokeWidth="1.6" />
+        <path d="M4 19c.6-2.8 2.5-4.3 5-4.3s4.4 1.5 5 4.3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+        <path d="M14.5 19c.4-1.9 1.7-3 3.6-3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      </svg>
+    ),
   },
   {
     title: "Choice",
-    description: "Options throughout the day, not one fixed schedule for everyone.",
+    description: "Options throughout the day rather than one rigid schedule.",
+    tone: "terracotta",
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 4v6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+        <path d="M12 10L6 20" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+        <path d="M12 10l6 10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+        <circle cx="12" cy="4" r="2" stroke="currentColor" strokeWidth="1.6" />
+      </svg>
+    ),
   },
   {
-    title: "Independence",
-    description: "Support for what's hard, room to do what's still easy.",
-  },
-  {
-    title: "Belonging",
-    description: "A community that notices when you're there, and when you're not.",
-  },
-  {
-    title: "Support",
-    description: "Dependable structure for participants and relief for families.",
+    title: "Dependable Support",
+    description: "Skilled daytime support for participants, reliable respite for families.",
+    tone: "sage",
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path
+          d="M12 3l7 3v5c0 4.5-3 7.7-7 9-4-1.3-7-4.5-7-9V6l7-3z"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinejoin="round"
+        />
+        <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
   },
 ];
 
@@ -44,9 +73,8 @@ export default function Pillars() {
             day matter.
           </h2>
           <p className="mt-5 text-lg text-ink-700">
-            The Day House focuses on what someone can still do, not only on
-            what they can no longer do. Every day is built around purpose,
-            relationships, and choice.
+            The Day House focuses on what someone can still do, enjoy,
+            choose, and contribute, not only on what they can no longer do.
           </p>
         </div>
 
@@ -55,16 +83,21 @@ export default function Pillars() {
           them occupied.
         </p>
 
-        <div className="mt-12 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
+        <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2">
           {PILLARS.map((pillar) => (
             <div
               key={pillar.title}
-              className="rounded-xl2 border border-sage-100 bg-cream p-6 shadow-sm transition hover:shadow-soft"
+              className="flex gap-4 rounded-xl2 border border-sage-100 bg-cream p-6 shadow-sm transition hover:shadow-soft"
             >
-              <h3 className="text-lg font-semibold text-sage-700">
-                {pillar.title}
-              </h3>
-              <p className="mt-2 text-sm text-ink-700">{pillar.description}</p>
+              <span
+                className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full ${TONE_CLASSES[pillar.tone]}`}
+              >
+                {pillar.icon}
+              </span>
+              <div>
+                <h3 className="text-lg font-semibold text-ink">{pillar.title}</h3>
+                <p className="mt-1.5 text-base text-ink-700">{pillar.description}</p>
+              </div>
             </div>
           ))}
         </div>

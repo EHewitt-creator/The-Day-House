@@ -8,6 +8,13 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      // Extra breakpoint below the default `sm` (640px), for mobile-first
+      // tweaks that should kick in on typical modern phones (~390-430px
+      // wide) while still leaving very small or split-screen viewports at
+      // a single column.
+      screens: {
+        xs: "420px",
+      },
       colors: {
         cream: {
           DEFAULT: "#FBF6EE",

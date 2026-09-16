@@ -11,16 +11,6 @@ export const INTERESTED_IN_OPTIONS = [
   { value: "professional_support", label: "Someone I support professionally" },
 ] as const;
 
-export const PRIMARY_LOOKING_FOR_OPTIONS = [
-  { value: "daytime_engagement_social", label: "Daytime engagement and social connection" },
-  { value: "dementia_support", label: "Dementia support" },
-  { value: "caregiver_respite", label: "Caregiver respite" },
-  { value: "safe_place_workday", label: "A safe place during the workday" },
-  { value: "help_living_at_home", label: "Help keeping a loved one living at home" },
-  { value: "exploring_future_options", label: "Exploring options for the future" },
-  { value: "other", label: "Other" },
-] as const;
-
 export const DAYS_PER_WEEK_OPTIONS = [
   { value: "1", label: "1" },
   { value: "2", label: "2" },

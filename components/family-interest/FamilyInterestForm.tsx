@@ -19,15 +19,14 @@ const emptyStepOne: StepOneType = {
   phone: "",
   zipCode: "",
   interestedIn: "",
-  primaryLookingFor: "",
   daysPerWeek: "",
-  preferredDaysOfWeek: [],
-  preferredArrivalTime: "",
-  preferredPickupTime: "",
   consentToContact: false,
 };
 
 const emptyStepTwo: StepTwoType = {
+  preferredDaysOfWeek: [],
+  preferredArrivalTime: "",
+  preferredPickupTime: "",
   preferredHours: "",
   preferredHoursOther: "",
   servicesWanted: [],
@@ -44,10 +43,10 @@ function validateStepOne(v: StepOneType): FieldErrors {
   const errors: FieldErrors = {};
   if (!isNonEmpty(v.fullName)) errors.fullName = "Please enter your full name.";
   if (!isValidEmail(v.email)) errors.email = "Please enter a valid email address.";
-  if (!isValidPhone(v.phone)) errors.phone = "Please enter a valid phone number.";
+  // Phone is optional in step 1 — only validate its format if provided.
+  if (isNonEmpty(v.phone) && !isValidPhone(v.phone)) errors.phone = "Please enter a valid phone number.";
   if (!isValidZip(v.zipCode)) errors.zipCode = "Please enter a valid ZIP code.";
   if (!v.interestedIn) errors.interestedIn = "Please select an option.";
-  if (!v.primaryLookingFor) errors.primaryLookingFor = "Please select an option.";
   if (!v.daysPerWeek) errors.daysPerWeek = "Please select an option.";
   if (!v.consentToContact) errors.consentToContact = "Please check this box to join the interest list.";
   return errors;
@@ -165,9 +164,13 @@ export default function FamilyInterestForm() {
 
       {step === "two" && (
         <form onSubmit={handleStepTwoSubmit} noValidate>
-          <div className="mb-6 rounded-xl2 bg-terracotta-50 p-4 text-base text-ink-700">
-            You&rsquo;re on the list. The next questions are completely
-            optional and help us plan hours, services, and pricing.
+          <div role="status" className="mb-6 rounded-xl2 bg-terracotta-50 p-4 text-base text-ink-700">
+            <p className="font-semibold text-sage-700">You&rsquo;re on the list.</p>
+            <p className="mt-1">
+              Would you answer a 60-second optional survey to help us shape
+              The Day House? Every question below is optional, and you can
+              skip it entirely.
+            </p>
           </div>
 
           <FamilyInterestStepTwo value={stepTwo} onChange={(patch) => setStepTwo((prev) => ({ ...prev, ...patch }))} />

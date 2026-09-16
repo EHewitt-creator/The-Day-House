@@ -24,13 +24,46 @@ This build was verified in a sandboxed environment without access to
 `fonts.googleapis.com`; a normal environment (local machine, Vercel, etc.)
 will fetch the Fraunces/Inter fonts at build time with no changes needed.
 
+## Homepage structure
+
+The homepage (`app/page.tsx`) is a short, mobile-first, conversion-focused
+landing page built around one dominant journey: understand The Day House,
+trust The Day House, join the interest list. Sections render in this
+order:
+
+1. `Hero` — headline, supporting copy, primary and secondary CTA, and a
+   photo-free branded visual panel (no stock photography).
+2. `Pillars` — 4 "why we're different" pillars (Purpose, Connection,
+   Choice, Dependable Support), each a compact icon + description row.
+3. `DayInLife` — 4 categories of "what a day may feel like," rendered as a
+   vertical rhythm/timeline, not a tile grid.
+4. `FamilyValue` — the caregiver-relief pitch plus a chip grid of what
+   families get time back for.
+5. `FamilyInterestSection` — the two-step interest form (moved up from
+   near the bottom of the old page; see "Forms and data" below).
+6. `FoundersPreview` — a compact, two-founder summary with initials
+   avatars (no photo placeholders).
+7. `SecondaryPathways` — a single dark section combining the Careers
+   teaser and the Partners/Community teaser, each linking to its own full
+   page rather than embedding a form on the homepage.
+8. `ClosingCta` — a short final interest-list prompt before the footer.
+
+`components/CareersSection.tsx` and `components/CommunityContact.tsx`
+(the old, longer standalone sections) and `BrandStatementBanner` (the old
+full-width three-column promise banner) have been removed; their
+homepage-relevant content now lives in `SecondaryPathways` and
+`ClosingCta`. The full career-interest form (with resume upload) still
+lives on its own page at `/careers`, unchanged.
+
 ## What's here
 
 - `app/` — App Router pages: home (`/`), `/our-approach`, `/about`,
   `/careers`, `/contact`, `/privacy`, plus API routes under `app/api/`.
 - `components/` — Page sections and shared UI (Nav, Footer, forms, photo
   placeholders, etc.). `components/family-interest/` holds the two-step
-  waitlist form and its optional research survey.
+  waitlist form and its optional research survey. The homepage itself no
+  longer uses `PhotoPlaceholder`; it's still used on `/about` for the
+  founders' portraits.
 - `lib/` — Analytics event helper, UTM capture/storage, form validation,
   and the shared option lists used by the forms.
 - `types/leads.ts` — Typed payload shapes for family leads, career leads,
@@ -52,7 +85,12 @@ development and return `{ ok: true }`:
 - `POST /api/family-interest` — interest list (step 1, required) and the
   optional "help us build the program" survey (step 2). A lead is created
   from step 1 alone; step 2 is a second, separate submission tagged
-  `step2Completed: true`.
+  `step2Completed: true`. Step 1 collects only the minimum needed to
+  create a lead: full name, email, ZIP code, optional phone, who you're
+  exploring the program for, and approximate days per week. Everything
+  else (preferred days/times, preferred hours, services wanted, barriers,
+  price sensitivity, and willingness to do a 15-minute interview) moved
+  into the fully optional, fully skippable step 2 survey.
 - `POST /api/career-interest` — talent community signups. Sent as
   `multipart/form-data` because of the optional resume upload.
 - `POST /api/contact` — general inquiries from families, referral
@@ -168,12 +206,12 @@ team won't need for months.
    all three forms before treating the site as live.
 2. **Deploy and point the domain** (see "Deployment" above). This is the
    most likely remaining bottleneck to an ASAP launch.
-3. **Add real photography.** Every photo on the site is a labeled
-   placeholder (`components/PhotoPlaceholder.tsx`) describing what should
-   go there. Swap these for real images (ideally people actually
-   interacting: conversation, gardening, art, cooking, walking) using
-   `next/image` once photography is available. This doesn't need to block
-   launch — the placeholders are intentionally clear about what's missing.
+3. **Consider real photography.** The homepage is intentionally photo-free
+   right now (soft abstract color compositions, icons, and the real brand
+   mark instead of stock photography or placeholders). `/about` still uses
+   labeled placeholders (`components/PhotoPlaceholder.tsx`) for the
+   founders' portraits. Swap in real images with `next/image` once
+   photography is available; this doesn't need to block launch.
 4. **Pick and install an analytics provider**, then fill in the `track()`
    function in `lib/analytics.ts`. Google Analytics 4 is a natural
    default given the existing Workspace/Google account.

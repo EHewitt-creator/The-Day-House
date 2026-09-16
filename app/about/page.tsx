@@ -54,7 +54,7 @@ export default function AboutPage() {
           />
         </div>
 
-        <div className="mt-16 max-w-3xl rounded-xl2 bg-sage-50 p-8">
+        <div className="mt-16 max-w-3xl rounded-xl2 bg-sage-50 p-6 sm:p-8">
           <p className="text-xl font-medium text-sage-700">
             Together, they are building The Day House around a simple
             belief: people living with dementia deserve meaningful days

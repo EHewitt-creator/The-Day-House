@@ -22,7 +22,7 @@ export default function Nav() {
         <Logo />
 
         <nav
-          className="hidden items-center gap-8 md:flex"
+          className="hidden items-center gap-6 lg:flex lg:gap-8"
           aria-label="Primary"
         >
           {NAV_LINKS.map((link) => (
@@ -36,7 +36,7 @@ export default function Nav() {
           ))}
         </nav>
 
-        <div className="hidden md:block">
+        <div className="hidden lg:block">
           <Link
             href="/#family-interest"
             className="btn-primary"
@@ -48,7 +48,7 @@ export default function Nav() {
 
         <button
           type="button"
-          className="inline-flex items-center justify-center rounded-full p-2 md:hidden"
+          className="inline-flex items-center justify-center rounded-full p-2 lg:hidden"
           aria-expanded={open}
           aria-controls="mobile-nav"
           aria-label={open ? "Close menu" : "Open menu"}
@@ -78,7 +78,7 @@ export default function Nav() {
         <nav
           id="mobile-nav"
           aria-label="Mobile"
-          className="border-t border-ink/5 bg-cream px-6 pb-6 pt-2 md:hidden"
+          className="border-t border-ink/5 bg-cream px-6 pb-6 pt-2 lg:hidden"
         >
           <ul className="flex flex-col gap-1">
             {NAV_LINKS.map((link) => (

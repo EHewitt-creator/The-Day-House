@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import PhotoPlaceholder from "@/components/PhotoPlaceholder";
+import Image from "next/image";
+import logoMark from "@/public/brand/logo-grid.png";
 import { BrandStatementInline } from "@/components/BrandStatement";
 import { track } from "@/lib/analytics";
 
@@ -22,9 +23,9 @@ export default function Hero() {
           </p>
 
           <p className="mt-4 text-lg text-ink-700">
-            We&rsquo;re creating a place built around meaningful days, real
-            relationships, movement, creativity, choice, and dignity, while
-            giving families dependable daytime support.
+            We&rsquo;re creating a warm, adult place built around purpose,
+            movement, creativity, choice, and real relationships, with
+            dependable daytime support for families.
           </p>
 
           <BrandStatementInline className="mt-6" />
@@ -37,21 +38,30 @@ export default function Hero() {
             >
               Join Our Interest List
             </Link>
-            <Link
-              href="/our-approach"
-              className="btn-secondary"
-            >
-              Learn About The Day House
+            <Link href="/our-approach" className="btn-secondary">
+              Explore Our Approach
             </Link>
           </div>
+
+          <p className="mt-4 text-sm text-ink-500">
+            No commitment. Get opening updates and help shape the program.
+          </p>
         </div>
 
-        <PhotoPlaceholder
-          label="Older adults in easy conversation over coffee, natural light, no clinical setting visible"
-          aspect="aspect-[5/4]"
-          tone="terracotta"
-          className="lg:h-full"
-        />
+        <div className="relative aspect-[5/4] w-full">
+          {/* Soft, nonrepresentational color composition — no stock photography. */}
+          <div className="absolute -right-6 -top-6 h-40 w-40 rounded-full bg-terracotta-100/60 blur-2xl" aria-hidden="true" />
+          <div className="absolute -bottom-8 -left-8 h-48 w-48 rounded-full bg-sage-100/70 blur-2xl" aria-hidden="true" />
+          <div className="relative flex h-full w-full flex-col items-center justify-center gap-6 rounded-xl2 border border-ink/5 bg-cream/80 p-10 text-center shadow-soft backdrop-blur-sm">
+            <Image src={logoMark} alt="" className="h-24 w-24 rounded-2xl shadow-sm sm:h-28 sm:w-28" priority />
+            <p className="font-serif text-2xl italic text-sage-700 sm:text-3xl">
+              A place to belong, every day.
+            </p>
+            <p className="text-sm font-semibold uppercase tracking-wide text-ink-500">
+              Treasure Valley, Idaho · Opening 2027
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -17,15 +17,6 @@ export type InterestedInOption =
   | "friend"
   | "professional_support";
 
-export type PrimaryLookingForOption =
-  | "daytime_engagement_social"
-  | "dementia_support"
-  | "caregiver_respite"
-  | "safe_place_workday"
-  | "help_living_at_home"
-  | "exploring_future_options"
-  | "other";
-
 export type DaysPerWeekOption = "1" | "2" | "3" | "4" | "5" | "not_sure";
 
 export type PreferredHoursOption =
@@ -73,23 +64,27 @@ export type PriceRangeOption =
   | "not_sure"
   | "need_financial_assistance";
 
-/** Step 1: required contact + high-level interest. A lead is created from this alone. */
+/**
+ * Step 1: short lead capture only. A lead is created from this alone, so it
+ * deliberately asks for as little as possible before someone is on the
+ * list — everything that isn't needed to save a lead lives in step 2
+ * instead.
+ */
 export type FamilyInterestStepOne = {
   fullName: string;
   email: string;
   phone: string;
   zipCode: string;
   interestedIn: InterestedInOption | "";
-  primaryLookingFor: PrimaryLookingForOption | "";
   daysPerWeek: DaysPerWeekOption | "";
-  preferredDaysOfWeek: string[];
-  preferredArrivalTime: string;
-  preferredPickupTime: string;
   consentToContact: boolean;
 };
 
 /** Step 2: optional market-research survey. Entirely skippable. */
 export type FamilyInterestStepTwo = {
+  preferredDaysOfWeek: string[];
+  preferredArrivalTime: string;
+  preferredPickupTime: string;
   preferredHours: PreferredHoursOption | "";
   preferredHoursOther: string;
   servicesWanted: ServiceFeatureOption[];

@@ -3,8 +3,21 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 
   body {
@@ -42,7 +55,7 @@
   }
 
   .section {
-    @apply mx-auto max-w-content px-6 py-20 sm:px-8 lg:py-28;
+    @apply mx-auto max-w-content px-6 py-14 sm:px-8 sm:py-20 lg:py-28;
   }
 
   .eyebrow {
