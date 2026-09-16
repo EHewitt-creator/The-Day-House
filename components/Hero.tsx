@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import logoMark from "@/public/brand/logo-grid.png";
-import { BrandStatementInline } from "@/components/BrandStatement";
+import { JoinedPhrases } from "@/components/BrandStatement";
 import { track } from "@/lib/analytics";
 
 export default function Hero() {
@@ -28,8 +28,6 @@ export default function Hero() {
             dependable daytime support for families.
           </p>
 
-          <BrandStatementInline className="mt-6" />
-
           <div className="mt-8 flex flex-col gap-4 sm:flex-row">
             <Link
               href="/#family-interest"
@@ -53,9 +51,14 @@ export default function Hero() {
           <div className="absolute -right-6 -top-6 h-40 w-40 rounded-full bg-terracotta-100/60 blur-2xl" aria-hidden="true" />
           <div className="absolute -bottom-8 -left-8 h-48 w-48 rounded-full bg-sage-100/70 blur-2xl" aria-hidden="true" />
           <div className="relative flex h-full w-full flex-col items-center justify-center gap-6 rounded-xl2 border border-ink/5 bg-cream/80 p-10 text-center shadow-soft backdrop-blur-sm">
-            <Image src={logoMark} alt="" className="h-24 w-24 rounded-2xl shadow-sm sm:h-28 sm:w-28" priority />
-            <p className="font-serif text-2xl italic text-sage-700 sm:text-3xl">
-              A place to belong, every day.
+            <Image
+              src={logoMark}
+              alt=""
+              className="h-36 w-36 rounded-3xl shadow-sm sm:h-44 sm:w-44 lg:h-40 lg:w-40 xl:h-44 xl:w-44"
+              priority
+            />
+            <p className="text-lg font-semibold tracking-tight text-sage-700 sm:text-xl">
+              <JoinedPhrases dotClassName="text-terracotta-500" />
             </p>
             <p className="text-sm font-semibold uppercase tracking-wide text-ink-500">
               Treasure Valley, Idaho · Opening 2027
