@@ -5,6 +5,14 @@ const TONE_CLASSES: Record<Tone, string> = {
   sage: "bg-sage-100 text-sage-700",
 };
 
+// A colored top rule instead of a bordered, shadowed card — lighter and
+// less "card grid," per the redesign's move away from box-and-shadow
+// treatments for these four items.
+const RULE_CLASSES: Record<Tone, string> = {
+  terracotta: "border-terracotta-500",
+  sage: "border-sage-500",
+};
+
 const PILLARS: { title: string; description: string; tone: Tone; icon: React.ReactNode }[] = [
   {
     title: "Purpose",
@@ -73,29 +81,26 @@ export default function Pillars() {
           </h2>
           <p className="mt-5 text-lg text-ink-700">
             At The Day House, we focus on <strong className="font-semibold">what remains possible</strong>.
+            Every day is designed around independence and the person behind
+            the diagnosis.
           </p>
         </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2">
+        <div className="mt-10 grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
           {PILLARS.map((pillar) => (
-            <div
-              key={pillar.title}
-              className="flex gap-4 rounded-xl2 border border-sage-100 bg-cream p-6 shadow-sm transition hover:shadow-soft"
-            >
+            <div key={pillar.title} className={`border-t-2 pt-5 ${RULE_CLASSES[pillar.tone]}`}>
               <span
-                className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full ${TONE_CLASSES[pillar.tone]}`}
+                className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full ${TONE_CLASSES[pillar.tone]}`}
               >
                 {pillar.icon}
               </span>
-              <div>
-                <h3 className="text-lg font-semibold text-ink">{pillar.title}</h3>
-                <p className="mt-1.5 text-base text-ink-700">{pillar.description}</p>
-              </div>
+              <h3 className="mt-3 text-lg font-semibold text-ink">{pillar.title}</h3>
+              <p className="mt-1.5 text-base text-ink-700">{pillar.description}</p>
             </div>
           ))}
         </div>
 
-        <p className="mt-12 text-xl font-semibold text-sage-700 sm:text-2xl">
+        <p className="mt-12 border-l-2 border-sage-600 pl-4 text-xl font-semibold text-sage-700 sm:text-2xl">
           Support should help someone participate in life, not simply keep
           them occupied.
         </p>
