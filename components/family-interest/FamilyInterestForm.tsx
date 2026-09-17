@@ -68,13 +68,24 @@ export default function FamilyInterestForm() {
   // so without this the page keeps whatever scroll position it had and the
   // visitor can end up looking at the section below instead of the
   // confirmation. Skip it on first mount so loading the page doesn't jump.
+  //
+  // Scrolling to the containerRef div itself would land the confirmation
+  // right under the sticky nav with no context above it — no "Interest
+  // List" eyebrow, no "Interested in The Day House?" heading, just the
+  // card. Scrolling to the whole <section id="family-interest"> instead
+  // (found via the nearest ancestor, so this component doesn't need a ref
+  // passed down from its parent) keeps that heading visible above the
+  // confirmation, matching what a visitor sees arriving at this section
+  // any other way. scroll-mt-28 lives on that section (see
+  // FamilyInterestSection.tsx) so the sticky nav still doesn't cover it.
   useEffect(() => {
     if (isFirstRender.current) {
       isFirstRender.current = false;
       return;
     }
+    const scrollTarget = containerRef.current?.closest("section") ?? containerRef.current;
     containerRef.current?.focus({ preventScroll: true });
-    containerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    scrollTarget?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [step]);
 
   function handleStepOneChange(patch: Partial<StepOneType>) {
@@ -159,7 +170,7 @@ export default function FamilyInterestForm() {
   }
 
   return (
-    <div ref={containerRef} tabIndex={-1} className="scroll-mt-28 outline-none">
+    <div ref={containerRef} tabIndex={-1} className="outline-none">
       {step === "done" && (
         <SuccessMessage
           heading="Thank you."

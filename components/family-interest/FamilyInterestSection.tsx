@@ -2,7 +2,7 @@ import FamilyInterestForm from "@/components/family-interest/FamilyInterestForm"
 
 export default function FamilyInterestSection() {
   return (
-    <section id="family-interest" className="bg-cream-100">
+    <section id="family-interest" className="scroll-mt-28 bg-cream-100">
       <div className="section">
         <div className="max-w-2xl">
           <span className="eyebrow">Interest List</span>
