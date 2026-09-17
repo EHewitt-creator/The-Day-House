@@ -1,15 +1,21 @@
-import type { Metadata } from "next";
 import CareerForm from "@/components/CareerForm";
+import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Careers",
   description:
     "Join the team building The Day House, a new dementia daytime program opening soon in the Treasure Valley. Care partner, activities, nursing, and operations roles.",
-};
+  path: "/careers",
+});
 
 export default function CareersPage() {
   return (
     <section className="section">
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd("Careers", "/careers")) }}
+      />
       <span className="eyebrow">Careers</span>
       <h1 className="mt-4 max-w-3xl text-4xl font-semibold sm:text-5xl">
         Want to help build The Day House?

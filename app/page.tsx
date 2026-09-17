@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import Pillars from "@/components/Pillars";
 import DayInLife from "@/components/DayInLife";
@@ -7,20 +8,39 @@ import FoundersPreview from "@/components/FoundersPreview";
 import SecondaryPathways from "@/components/SecondaryPathways";
 import ClosingCta from "@/components/ClosingCta";
 import MobileStickyCta from "@/components/MobileStickyCta";
+import { SITE_NAME, SITE_URL } from "@/lib/seo";
 
-// Minimal, factual Organization structured data. Deliberately omits
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
+
+// Minimal, factual Organization + WebSite structured data, combined into one
+// graph so search engines can resolve the cross-references (WebSite.publisher
+// -> Organization) via @id. Organization deliberately omits
 // address/telephone/openingHours (LocalBusiness fields we can't populate
 // truthfully pre-opening) — see README for why this stays Organization
 // rather than LocalBusiness until there's a physical location to report.
-const ORGANIZATION_JSON_LD = {
+const HOME_JSON_LD = {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "The Day House",
-  url: "https://www.yourdayhouse.com",
-  logo: "https://www.yourdayhouse.com/brand/logo-grid.png",
-  description:
-    "The Day House is a dementia-informed adult day program and daytime community coming soon to the Treasure Valley for adults living with memory loss and dementia.",
-  areaServed: "Treasure Valley, Idaho",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: SITE_NAME,
+      url: SITE_URL,
+      logo: `${SITE_URL}/brand/logo-grid.png`,
+      description:
+        "The Day House is a dementia-informed adult day program and daytime community coming soon to the Treasure Valley for adults living with memory loss and dementia.",
+      areaServed: "Treasure Valley, Idaho",
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: SITE_NAME,
+      publisher: { "@id": `${SITE_URL}/#organization` },
+    },
+  ],
 };
 
 export default function HomePage() {
@@ -29,7 +49,7 @@ export default function HomePage() {
       <script
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_JSON_LD) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(HOME_JSON_LD) }}
       />
       <Hero />
       <Pillars />

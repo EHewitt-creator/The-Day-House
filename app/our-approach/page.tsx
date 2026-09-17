@@ -1,17 +1,25 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import Pillars from "@/components/Pillars";
 import DayInLife from "@/components/DayInLife";
+import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Our Approach",
   description:
     "How The Day House approaches dementia care: purpose, connection, movement, creativity, choice, independence, belonging, and support.",
-};
+  path: "/our-approach",
+});
 
 export default function OurApproachPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd("Our Approach", "/our-approach")),
+        }}
+      />
       <section className="section">
         <span className="eyebrow">Our Approach</span>
         <h1 className="mt-4 max-w-3xl text-4xl font-semibold sm:text-5xl">

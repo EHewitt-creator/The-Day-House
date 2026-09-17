@@ -1,18 +1,55 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import elvinaPhoto from "@/public/founders/elvina-hewitt.jpg";
 import robbinPhoto from "@/public/founders/robbin-hewitt.jpg";
+import { breadcrumbJsonLd, pageMetadata, SITE_NAME, SITE_URL } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "About",
   description:
     "Meet the founders of The Day House, Elvina Hewitt, RN, MBA, and Robbin Hewitt, and learn why they're building a better daytime program for adults living with dementia in the Treasure Valley.",
+  path: "/about",
+});
+
+// Person schema for the two named founders, built only from facts already
+// stated in this page's own copy above (roles, credentials) — nothing added
+// that isn't already visible to a visitor reading the page.
+const FOUNDERS_JSON_LD = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      name: "Elvina Hewitt",
+      honorificSuffix: "RN, MBA",
+      jobTitle: "Co-Founder",
+      description:
+        "Co-founder of The Day House with a background in Emergency Services clinical leadership and direct experience in Adult Day Health.",
+      worksFor: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
+    },
+    {
+      "@type": "Person",
+      name: "Robbin Hewitt",
+      jobTitle: "Co-Founder",
+      description:
+        "Co-founder of The Day House with a background as a firefighter and paramedic, focused on safety, emergency preparedness, and operations.",
+      worksFor: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
+    },
+  ],
 };
 
 export default function AboutPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd("About", "/about")) }}
+      />
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(FOUNDERS_JSON_LD) }}
+      />
       <section className="section">
         <span className="eyebrow">About Us</span>
         <h1 className="mt-4 max-w-3xl text-4xl font-semibold sm:text-5xl">

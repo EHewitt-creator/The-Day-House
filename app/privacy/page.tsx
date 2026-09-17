@@ -3,6 +3,11 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Privacy",
   description: "Privacy policy for The Day House.",
+  alternates: { canonical: "/privacy" },
+  // This page's own visible copy admits it's a placeholder, so it shouldn't
+  // be indexed as the site's real privacy policy. Revisit once real policy
+  // content replaces the placeholder text below.
+  robots: { index: false, follow: true },
 };
 
 export default function PrivacyPage() {
