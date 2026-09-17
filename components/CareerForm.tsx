@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SuccessMessage from "@/components/SuccessMessage";
 import { track } from "@/lib/analytics";
 import { getStoredUtmParams } from "@/lib/utm";
@@ -37,6 +37,20 @@ export default function CareerForm() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [done, setDone] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isFirstRender = useRef(true);
+
+  // Submitting swaps the full form for a short confirmation, so without this
+  // the page keeps its old scroll position and the visitor can end up
+  // looking past the confirmation instead of at it.
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    containerRef.current?.focus({ preventScroll: true });
+    containerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [done]);
 
   function update(patch: Partial<FormState>) {
     setForm((prev) => ({ ...prev, ...patch }));
@@ -91,10 +105,12 @@ export default function CareerForm() {
 
   if (done) {
     return (
-      <SuccessMessage
-        heading="Thanks for your interest in helping build The Day House."
-        message="We'll keep your information on file and reach out as opportunities develop."
-      />
+      <div ref={containerRef} tabIndex={-1} className="outline-none">
+        <SuccessMessage
+          heading="Thanks for your interest in helping build The Day House."
+          message="We'll keep your information on file and reach out as opportunities develop."
+        />
+      </div>
     );
   }
 

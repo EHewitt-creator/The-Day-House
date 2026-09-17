@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import FamilyInterestStepOne from "@/components/family-interest/FamilyInterestStepOne";
 import FamilyInterestStepTwo from "@/components/family-interest/FamilyInterestStepTwo";
 import SuccessMessage from "@/components/SuccessMessage";
@@ -61,6 +61,21 @@ export default function FamilyInterestForm() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const startedTracking = useRef(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isFirstRender = useRef(true);
+
+  // Moving between step 1 → step 2 → done/skipped swaps in shorter content,
+  // so without this the page keeps whatever scroll position it had and the
+  // visitor can end up looking at the section below instead of the
+  // confirmation. Skip it on first mount so loading the page doesn't jump.
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    containerRef.current?.focus({ preventScroll: true });
+    containerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [step]);
 
   function handleStepOneChange(patch: Partial<StepOneType>) {
     if (!startedTracking.current) {
@@ -143,73 +158,73 @@ export default function FamilyInterestForm() {
     setStep("skipped");
   }
 
-  if (step === "done") {
-    return (
-      <SuccessMessage
-        heading="Thank you."
-        message="Your input will help us make better decisions about The Day House's hours, pricing, and support for local families."
-      />
-    );
-  }
-
-  if (step === "skipped") {
-    return (
-      <SuccessMessage
-        heading="You're on the list."
-        message="No problem, you're still on our interest list. We'll be in touch as The Day House gets closer to opening."
-      />
-    );
-  }
-
   return (
-    <div>
-      <div className="mb-8 flex items-center gap-3 text-sm font-semibold text-ink-500">
-        <span className={step === "one" ? "text-sage-700" : ""}>Step 1 of 2 · Contact information</span>
-        {step === "two" && <span className="text-sage-700">→ Step 2 of 2 · Optional survey</span>}
-      </div>
-
-      {step === "one" && (
-        <form onSubmit={handleStepOneSubmit} noValidate>
-          <FamilyInterestStepOne value={stepOne} errors={errors} onChange={handleStepOneChange} />
-
-          {submitError && <p className="field-error mt-4">{submitError}</p>}
-
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <button type="submit" className="btn-primary" disabled={submitting}>
-              {submitting ? "Submitting…" : "Join the Interest List"}
-            </button>
-          </div>
-          <p className="mt-3 text-sm text-ink-500">
-            Joining the interest list does not commit you to enrollment.
-          </p>
-        </form>
+    <div ref={containerRef} tabIndex={-1} className="outline-none">
+      {step === "done" && (
+        <SuccessMessage
+          heading="Thank you."
+          message="Your input will help us make better decisions about The Day House's hours, pricing, and support for local families."
+        />
       )}
 
-      {step === "two" && (
-        <form onSubmit={handleStepTwoSubmit} noValidate>
-          <div role="status" className="mb-6 rounded-xl2 bg-terracotta-50 p-4 text-base text-ink-700">
-            <p className="font-semibold text-sage-700">You&rsquo;re on the list.</p>
-            <p className="mt-1">
-              Would you answer a short optional survey to help us plan The
-              Day House? Your answers will help us determine operating
-              hours, extended pickup needs, and pricing before we open.
-            </p>
-            <p className="mt-1">Every question is optional.</p>
+      {step === "skipped" && (
+        <SuccessMessage
+          heading="You're on the list."
+          message="No problem, you're still on our interest list. We'll be in touch as The Day House gets closer to opening."
+        />
+      )}
+
+      {(step === "one" || step === "two") && (
+        <>
+          <div className="mb-8 flex items-center gap-3 text-sm font-semibold text-ink-500">
+            <span className={step === "one" ? "text-sage-700" : ""}>Step 1 of 2 · Contact information</span>
+            {step === "two" && <span className="text-sage-700">→ Step 2 of 2 · Optional survey</span>}
           </div>
 
-          <FamilyInterestStepTwo value={stepTwo} onChange={(patch) => setStepTwo((prev) => ({ ...prev, ...patch }))} />
+          {step === "one" && (
+            <form onSubmit={handleStepOneSubmit} noValidate>
+              <FamilyInterestStepOne value={stepOne} errors={errors} onChange={handleStepOneChange} />
 
-          {submitError && <p className="field-error mt-4">{submitError}</p>}
+              {submitError && <p className="field-error mt-4">{submitError}</p>}
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <button type="submit" className="btn-primary" disabled={submitting}>
-              {submitting ? "Submitting…" : "Submit My Answers"}
-            </button>
-            <button type="button" className="btn-ghost" onClick={handleSkipSurvey}>
-              Skip This Survey
-            </button>
-          </div>
-        </form>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <button type="submit" className="btn-primary" disabled={submitting}>
+                  {submitting ? "Submitting…" : "Join the Interest List"}
+                </button>
+              </div>
+              <p className="mt-3 text-sm text-ink-500">
+                Joining the interest list does not commit you to enrollment.
+              </p>
+            </form>
+          )}
+
+          {step === "two" && (
+            <form onSubmit={handleStepTwoSubmit} noValidate>
+              <div role="status" className="mb-6 rounded-xl2 bg-terracotta-50 p-4 text-base text-ink-700">
+                <p className="font-semibold text-sage-700">You&rsquo;re on the list.</p>
+                <p className="mt-1">
+                  Would you answer a short optional survey to help us plan The
+                  Day House? Your answers will help us determine operating
+                  hours, extended pickup needs, and pricing before we open.
+                </p>
+                <p className="mt-1">Every question is optional.</p>
+              </div>
+
+              <FamilyInterestStepTwo value={stepTwo} onChange={(patch) => setStepTwo((prev) => ({ ...prev, ...patch }))} />
+
+              {submitError && <p className="field-error mt-4">{submitError}</p>}
+
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <button type="submit" className="btn-primary" disabled={submitting}>
+                  {submitting ? "Submitting…" : "Submit My Answers"}
+                </button>
+                <button type="button" className="btn-ghost" onClick={handleSkipSurvey}>
+                  Skip This Survey
+                </button>
+              </div>
+            </form>
+          )}
+        </>
       )}
     </div>
   );
