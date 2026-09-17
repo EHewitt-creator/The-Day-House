@@ -72,7 +72,7 @@ export default function Pillars() {
             Let&rsquo;s make the day matter.
           </h2>
           <p className="mt-5 text-lg text-ink-700">
-            At The Day House, we focus on what remains possible.
+            At The Day House, we focus on <strong className="font-semibold">what remains possible</strong>.
           </p>
           <p className="mt-3 text-lg text-ink-700">
             Our approach is built around meaningful engagement, independence,
