@@ -53,9 +53,17 @@ const config: Config = {
           500: "#6B675C",
         },
       },
+      // Poppins is the only font loaded now (see app/layout.tsx). Both
+      // `font-serif` (used for headings and the logo wordmark, via
+      // `h1, h2, h3, h4` in globals.css and components/Logo.tsx) and
+      // `font-sans` (body text, and a few explicit overrides like the
+      // Footer's eyebrow labels) point at the same font on purpose, so
+      // every existing className in the codebase keeps working — nothing
+      // is actually serif anymore, "serif" here is just the existing
+      // Tailwind utility name carried over from the previous two-font setup.
       fontFamily: {
-        serif: ["var(--font-fraunces)", "Georgia", "serif"],
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        serif: ["var(--font-poppins)", "system-ui", "sans-serif"],
+        sans: ["var(--font-poppins)", "system-ui", "sans-serif"],
       },
       borderRadius: {
         xl2: "1.25rem",

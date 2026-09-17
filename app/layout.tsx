@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import UtmCapture from "@/components/UtmCapture";
 
-const fraunces = Fraunces({
+// Single site-wide font. Poppins isn't a variable font on Google Fonts, so
+// (unlike the previous Fraunces/Inter setup) the weights actually used
+// across the site have to be listed explicitly — 400/500/600 covers every
+// font-normal/font-medium/font-semibold in the codebase today. Add a weight
+// here if a future component needs one (e.g. "700" for font-bold).
+const poppins = Poppins({
   subsets: ["latin"],
-  variable: "--font-fraunces",
-  display: "swap",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
+  weight: ["400", "500", "600"],
+  variable: "--font-poppins",
   display: "swap",
 });
 
@@ -53,7 +53,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
+    <html lang="en" className={poppins.variable}>
       <body className="flex min-h-screen flex-col">
         <UtmCapture />
         <a

@@ -22,7 +22,7 @@ npm start
 
 This build was verified in a sandboxed environment without access to
 `fonts.googleapis.com`; a normal environment (local machine, Vercel, etc.)
-will fetch the Fraunces/Inter fonts at build time with no changes needed.
+will fetch the Poppins font at build time with no changes needed.
 
 ## Homepage structure
 
