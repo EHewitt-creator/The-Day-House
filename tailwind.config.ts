@@ -36,6 +36,13 @@ const config: Config = {
           500: "#DC8A4E",
           600: "#C4713A",
           700: "#9C5A2E",
+          // Used for .btn-primary (see globals.css): 600 only measures
+          // 3.38:1 against the button's cream text, short of the 4.5:1
+          // WCAG 1.4.3 AA requires for normal-weight text this size. 700
+          // clears it at ~5:1 and is the new resting background; 800 is a
+          // step darker for the hover state, keeping it visibly darker
+          // than 700 rather than jumping to a much-larger contrast gap.
+          800: "#804A26",
         },
         sage: {
           DEFAULT: "#5C6B4F",

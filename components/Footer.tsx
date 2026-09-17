@@ -17,10 +17,18 @@ export default function Footer() {
             </p>
           </div>
 
+          {/* "Explore" and "Legal" are visual labels for these link groups,
+              not real content sections, so they're styled text rather than
+              <h2>s — every page already ends its actual heading outline
+              before the footer, and two more h2s here (repeated on every
+              page) would clutter screen-reader heading navigation with
+              headings unrelated to that page's content. The <footer>
+              element is already its own landmark, so no extra <nav> is
+              needed around these lists. */}
           <div>
-            <h2 className="mb-4 font-sans text-sm font-semibold uppercase tracking-wide text-cream-100/60">
+            <p className="mb-4 font-sans text-sm font-semibold uppercase tracking-wide text-cream-100/60">
               Explore
-            </h2>
+            </p>
             <ul className="space-y-3 text-base">
               <li>
                 <Link href="/our-approach" className="hover:text-terracotta-400">
@@ -46,9 +54,9 @@ export default function Footer() {
           </div>
 
           <div>
-            <h2 className="mb-4 font-sans text-sm font-semibold uppercase tracking-wide text-cream-100/60">
+            <p className="mb-4 font-sans text-sm font-semibold uppercase tracking-wide text-cream-100/60">
               Legal
-            </h2>
+            </p>
             <ul className="space-y-3 text-base">
               <li>
                 <Link href="/privacy" className="hover:text-terracotta-400">

@@ -42,8 +42,11 @@
 }
 
 @layer components {
+  /* bg-terracotta-700 (not 600) so cream text on this button clears the
+     WCAG 1.4.3 AA 4.5:1 contrast minimum — see the note by that color in
+     tailwind.config.ts. */
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-full bg-terracotta-600 px-7 py-3.5 text-base font-semibold text-cream shadow-soft transition hover:bg-terracotta-700 focus-visible:outline-offset-4;
+    @apply inline-flex items-center justify-center rounded-full bg-terracotta-700 px-7 py-3.5 text-base font-semibold text-cream shadow-soft transition hover:bg-terracotta-800 focus-visible:outline-offset-4;
   }
 
   .btn-secondary {
