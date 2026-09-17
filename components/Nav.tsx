@@ -7,7 +7,6 @@ import { track } from "@/lib/analytics";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
-  { href: "/our-approach", label: "Our Approach" },
   { href: "/about", label: "About" },
   { href: "/careers", label: "Careers" },
   { href: "/contact", label: "Contact" },
