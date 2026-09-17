@@ -7,6 +7,7 @@ import SuccessMessage from "@/components/SuccessMessage";
 import { track } from "@/lib/analytics";
 import { getStoredUtmParams } from "@/lib/utm";
 import { isValidEmail, isValidPhone, isValidZip, isNonEmpty, type FieldErrors } from "@/lib/validation";
+import { SURVEY_VERSION } from "@/lib/formOptions";
 import type {
   FamilyInterestPayload,
   FamilyInterestStepOne as StepOneType,
@@ -24,19 +25,19 @@ const emptyStepOne: StepOneType = {
 };
 
 const emptyStepTwo: StepTwoType = {
-  preferredDaysOfWeek: [],
-  preferredArrivalTime: "",
-  preferredPickupTime: "",
-  preferredHours: "",
-  preferredHoursOther: "",
-  servicesWanted: [],
-  servicesWantedOther: "",
-  barriers: [],
-  barriersOther: "",
-  realisticPriceRange: "",
-  tooExpensivePrice: "",
-  whatWouldBeValuable: "",
+  preferredWeekdays: [],
+  preferredWeekdaysNotSure: false,
+  preferredStartTime: "",
+  preferredStartTimeOther: "",
+  preferredStandardPickupTime: "",
+  preferredStandardPickupTimeOther: "",
+  extendedPickupFrequency: "",
+  realisticUsageAt200: "",
+  nonPriceBarriers: [],
+  nonPriceBarriersOther: "",
+  confidenceRequirement: "",
   willingToTalk: "",
+  surveyVersion: SURVEY_VERSION,
 };
 
 function validateStepOne(v: StepOneType): FieldErrors {
@@ -53,7 +54,7 @@ function validateStepOne(v: StepOneType): FieldErrors {
 }
 
 export default function FamilyInterestForm() {
-  const [step, setStep] = useState<"one" | "two" | "done">("one");
+  const [step, setStep] = useState<"one" | "two" | "done" | "skipped">("one");
   const [stepOne, setStepOne] = useState<StepOneType>(emptyStepOne);
   const [stepTwo, setStepTwo] = useState<StepTwoType>(emptyStepTwo);
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -116,7 +117,20 @@ export default function FamilyInterestForm() {
         submittedAt: new Date().toISOString(),
         source: "family_interest_form",
       });
-      track("survey_complete");
+      // Non-PII signals only — no names, contact details, or free-text
+      // answers (confidenceRequirement, the "other" fields) leave the client.
+      const answeredScheduleQuestions =
+        stepTwo.preferredWeekdays.length > 0 ||
+        stepTwo.preferredWeekdaysNotSure ||
+        !!stepTwo.preferredStartTime ||
+        !!stepTwo.preferredStandardPickupTime ||
+        !!stepTwo.extendedPickupFrequency;
+      track("survey_complete", {
+        survey_version: stepTwo.surveyVersion,
+        answered_schedule_questions: answeredScheduleQuestions,
+        answered_pricing_question: !!stepTwo.realisticUsageAt200,
+        willing_to_talk: stepTwo.willingToTalk || "not_answered",
+      });
       setStep("done");
     } catch {
       setSubmitError("Something went wrong submitting your answers. Please try again, or feel free to skip.");
@@ -126,14 +140,23 @@ export default function FamilyInterestForm() {
   }
 
   function handleSkipSurvey() {
-    setStep("done");
+    setStep("skipped");
   }
 
   if (step === "done") {
     return (
       <SuccessMessage
         heading="Thank you."
-        message="We're building The Day House with local families in mind, and your input genuinely helps shape what comes next."
+        message="Your input will help us make better decisions about The Day House's hours, pricing, and support for local families."
+      />
+    );
+  }
+
+  if (step === "skipped") {
+    return (
+      <SuccessMessage
+        heading="You're on the list."
+        message="No problem, you're still on our interest list. We'll be in touch as The Day House gets closer to opening."
       />
     );
   }
@@ -167,10 +190,11 @@ export default function FamilyInterestForm() {
           <div role="status" className="mb-6 rounded-xl2 bg-terracotta-50 p-4 text-base text-ink-700">
             <p className="font-semibold text-sage-700">You&rsquo;re on the list.</p>
             <p className="mt-1">
-              Would you answer a 60-second optional survey to help us shape
-              The Day House? Every question below is optional, and you can
-              skip it entirely.
+              Would you answer a short optional survey to help us plan The
+              Day House? Your answers will help us determine operating
+              hours, extended pickup needs, and pricing before we open.
             </p>
+            <p className="mt-1">Every question is optional.</p>
           </div>
 
           <FamilyInterestStepTwo value={stepTwo} onChange={(patch) => setStepTwo((prev) => ({ ...prev, ...patch }))} />
@@ -182,7 +206,7 @@ export default function FamilyInterestForm() {
               {submitting ? "Submitting…" : "Submit My Answers"}
             </button>
             <button type="button" className="btn-ghost" onClick={handleSkipSurvey}>
-              Skip this part
+              Skip This Survey
             </button>
           </div>
         </form>

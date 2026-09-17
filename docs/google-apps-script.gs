@@ -39,6 +39,21 @@ const NOTIFY_EMAILS = {
 
 const RESUME_FOLDER_NAME = "The Day House — Resumes";
 
+// "Family Leads" columns 1-23 are the original layout and are intentionally
+// left completely untouched below — same labels, same order — including
+// columns 10-19 ("Preferred Days" through "Willing To Talk 15min"), which
+// held answers from the first version of the optional survey. When that
+// survey was replaced (2026-09, "2026-09-hours-pricing-v1"), those columns
+// were deliberately NOT deleted, renamed, or reordered — doing so would
+// misalign every row a live sheet already has, since this script only
+// writes the header row once, when a tab is first created (see
+// getOrCreateSheet below). They are simply left blank ("") on every row
+// this script writes from now on; any historical answers already in those
+// columns are untouched. The new survey's answers are appended as
+// brand-new columns 24 onward instead. If you already have a live "Family
+// Leads" tab with real rows in it, add these new column headers (24-32
+// below) to the end of its existing header row before this updated script
+// starts writing rows, so new answers land under the right labels.
 const HEADERS = {
   "Family Leads": [
     "Submitted At",
@@ -64,6 +79,15 @@ const HEADERS = {
     "UTM Medium",
     "UTM Campaign",
     "UTM Content",
+    "Survey Version",
+    "Preferred Weekdays",
+    "Preferred Start Time",
+    "Preferred Standard Pickup Time",
+    "Extended Pickup Frequency (5:30 PM)",
+    "Realistic Usage At $200/Day",
+    "Non-Price Barriers",
+    "Confidence Requirement",
+    "Willing To Talk (Survey v2)",
   ],
   "Career Leads": [
     "Submitted At",
@@ -150,23 +174,45 @@ function buildFamilyLeadRow(body) {
     step1.daysPerWeek || "",
     step1.consentToContact ? "Yes" : "No",
     body.step2Completed ? "Yes" : "No",
-    (step2.preferredDaysOfWeek || []).join(", "),
-    step2.preferredArrivalTime || "",
-    step2.preferredPickupTime || "",
-    step2.preferredHours
-      ? step2.preferredHours + (step2.preferredHoursOther ? " (" + step2.preferredHoursOther + ")" : "")
-      : "",
-    (step2.servicesWanted || []).join(", ") + (step2.servicesWantedOther ? " (" + step2.servicesWantedOther + ")" : ""),
-    (step2.barriers || []).join(", ") + (step2.barriersOther ? " (" + step2.barriersOther + ")" : ""),
-    step2.realisticPriceRange || "",
-    step2.tooExpensivePrice || "",
-    step2.whatWouldBeValuable || "",
-    step2.willingToTalk || "",
+    "", // Preferred Days — retired with the old survey, left blank going forward
+    "", // Preferred Arrival — retired with the old survey, left blank going forward
+    "", // Preferred Pickup — retired with the old survey, left blank going forward
+    "", // Preferred Hours — retired with the old survey, left blank going forward
+    "", // Services Wanted — retired with the old survey, left blank going forward
+    "", // Barriers — retired with the old survey, left blank going forward
+    "", // Realistic Price Range — retired with the old survey, left blank going forward
+    "", // Too Expensive Price — retired with the old survey, left blank going forward
+    "", // What Would Be Valuable — retired with the old survey, left blank going forward
+    "", // Willing To Talk 15min — retired with the old survey, left blank going forward
     utm.utm_source || "",
     utm.utm_medium || "",
     utm.utm_campaign || "",
     utm.utm_content || "",
+    step2.surveyVersion || "",
+    weekdaysSummary(step2),
+    step2.preferredStartTime
+      ? step2.preferredStartTime +
+        (step2.preferredStartTimeOther ? " (" + step2.preferredStartTimeOther + ")" : "")
+      : "",
+    step2.preferredStandardPickupTime
+      ? step2.preferredStandardPickupTime +
+        (step2.preferredStandardPickupTimeOther ? " (" + step2.preferredStandardPickupTimeOther + ")" : "")
+      : "",
+    step2.extendedPickupFrequency || "",
+    step2.realisticUsageAt200 || "",
+    (step2.nonPriceBarriers || []).join(", ") +
+      (step2.nonPriceBarriersOther ? " (" + step2.nonPriceBarriersOther + ")" : ""),
+    step2.confidenceRequirement || "",
+    step2.willingToTalk || "",
   ];
+}
+
+// "I'm not sure yet" is stored as its own boolean (preferredWeekdaysNotSure)
+// rather than mixed into the preferredWeekdays list, so it reads clearly as
+// a single cell either way.
+function weekdaysSummary(step2) {
+  if (step2.preferredWeekdaysNotSure) return "Not sure yet";
+  return (step2.preferredWeekdays || []).join(", ");
 }
 
 function buildCareerLeadRow(body) {

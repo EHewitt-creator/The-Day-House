@@ -19,50 +19,40 @@ export type InterestedInOption =
 
 export type DaysPerWeekOption = "1" | "2" | "3" | "4" | "5" | "not_sure";
 
-export type PreferredHoursOption =
-  | "8_330"
-  | "830_430"
-  | "9_330"
-  | "extended_530"
-  | "other";
+export type PreferredWeekdayOption = "monday" | "tuesday" | "wednesday" | "thursday" | "friday";
 
-export type ServiceFeatureOption =
-  | "social_cognitive_engagement"
-  | "exercise_movement"
-  | "outdoor_space"
-  | "gardening"
-  | "art_music_creative"
-  | "lunch_snacks"
-  | "personal_care_toileting"
-  | "medication_reminders"
-  | "dementia_trained_staff"
-  | "rn_oversight"
-  | "caregiver_communication"
-  | "small_staff_ratios"
-  | "quiet_calming_space"
-  | "other";
+export type PreferredStartTimeOption = "8_30_am" | "9_00_am" | "either" | "neither" | "not_sure";
 
-export type BarrierOption =
-  | "cost"
-  | "hours"
+export type PreferredStandardPickupTimeOption = "3_30_pm" | "4_30_pm" | "either" | "neither" | "not_sure";
+
+export type ExtendedPickupFrequencyOption =
+  | "never"
+  | "occasionally"
+  | "1_2_days_per_week"
+  | "most_scheduled_days"
+  | "every_scheduled_day"
+  | "not_sure";
+
+export type RealisticUsageAt200Option =
+  | "5_days_per_week"
+  | "3_4_days_per_week"
+  | "2_days_per_week"
+  | "under_2_or_occasional"
+  | "needs_financial_assistance"
+  | "cannot_consider_at_price"
+  | "not_sure";
+
+export type NonPriceBarrierOption =
   | "transportation"
-  | "location_distance"
-  | "loved_one_unwilling"
-  | "personal_care_needs"
-  | "medical_needs"
-  | "behavioral_needs"
-  | "schedule_uncertainty"
+  | "location_or_distance"
+  | "reluctant_to_attend"
+  | "needs_may_exceed_scope"
+  | "behavioral_support_needs"
+  | "unpredictable_schedule"
+  | "not_ready_yet"
   | "other";
 
-export type PriceRangeOption =
-  | "under_125"
-  | "125_149"
-  | "150_174"
-  | "175_199"
-  | "200_224"
-  | "225_plus"
-  | "not_sure"
-  | "need_financial_assistance";
+export type WillingToTalkOption = "yes" | "maybe" | "no";
 
 /**
  * Step 1: short lead capture only. A lead is created from this alone, so it
@@ -80,21 +70,28 @@ export type FamilyInterestStepOne = {
   consentToContact: boolean;
 };
 
-/** Step 2: optional market-research survey. Entirely skippable. */
+/**
+ * Step 2: optional, ~60-90 second market-research survey. Entirely
+ * skippable, and every question inside it is independently optional too —
+ * see the "2026-09-hours-pricing-v1" survey below for what's asked and why.
+ * `surveyVersion` is a fixed constant (see lib/formOptions.ts), not user
+ * input, and lets responses to a future revision of this survey stay
+ * distinguishable from these in the sheet without touching old rows.
+ */
 export type FamilyInterestStepTwo = {
-  preferredDaysOfWeek: string[];
-  preferredArrivalTime: string;
-  preferredPickupTime: string;
-  preferredHours: PreferredHoursOption | "";
-  preferredHoursOther: string;
-  servicesWanted: ServiceFeatureOption[];
-  servicesWantedOther: string;
-  barriers: BarrierOption[];
-  barriersOther: string;
-  realisticPriceRange: PriceRangeOption | "";
-  tooExpensivePrice: string;
-  whatWouldBeValuable: string;
-  willingToTalk: "yes" | "no" | "";
+  preferredWeekdays: PreferredWeekdayOption[];
+  preferredWeekdaysNotSure: boolean;
+  preferredStartTime: PreferredStartTimeOption | "";
+  preferredStartTimeOther: string;
+  preferredStandardPickupTime: PreferredStandardPickupTimeOption | "";
+  preferredStandardPickupTimeOther: string;
+  extendedPickupFrequency: ExtendedPickupFrequencyOption | "";
+  realisticUsageAt200: RealisticUsageAt200Option | "";
+  nonPriceBarriers: NonPriceBarrierOption[];
+  nonPriceBarriersOther: string;
+  confidenceRequirement: string;
+  willingToTalk: WillingToTalkOption | "";
+  surveyVersion: string;
 };
 
 export type FamilyInterestPayload = {

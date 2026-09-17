@@ -83,14 +83,30 @@ Three placeholder API routes log submissions to the server console in
 development and return `{ ok: true }`:
 
 - `POST /api/family-interest` — interest list (step 1, required) and the
-  optional "help us build the program" survey (step 2). A lead is created
-  from step 1 alone; step 2 is a second, separate submission tagged
-  `step2Completed: true`. Step 1 collects only the minimum needed to
+  optional planning survey (step 2). A lead is created from step 1 alone;
+  step 2 is a second, separate submission tagged `step2Completed: true`
+  that a visitor can skip, close out of, or fail to submit without ever
+  affecting the step 1 lead. Step 1 collects only the minimum needed to
   create a lead: full name, email, ZIP code, optional phone, who you're
-  exploring the program for, and approximate days per week. Everything
-  else (preferred days/times, preferred hours, services wanted, barriers,
-  price sensitivity, and willingness to do a 15-minute interview) moved
-  into the fully optional, fully skippable step 2 survey.
+  exploring the program for, and approximate days per week.
+
+  Step 2 is a short (~60-90 second), fully optional survey, revision
+  `SURVEY_VERSION` in `lib/formOptions.ts` (currently
+  `"2026-09-hours-pricing-v1"`), built to answer 8 specific planning
+  questions: preferred operating weekdays, preferred start time, preferred
+  standard pickup time, demand for extended pickup through 5:30 PM,
+  realistic paid usage at the anticipated $200/day price, non-price
+  barriers to attending (max two), the one thing that would make a
+  caregiver confident about a good day there, and willingness to do a
+  15-minute follow-up conversation. Every question is independently
+  optional — none are required to submit the survey, and the survey
+  itself is entirely skippable. Types live in `types/leads.ts`
+  (`FamilyInterestStepTwo`), option lists in `lib/formOptions.ts`, and the
+  UI in `components/family-interest/FamilyInterestStepTwo.tsx`. Bump
+  `SURVEY_VERSION` and add new fields/columns additively (never rename or
+  reorder existing ones) if the questions change again after real
+  responses exist — see the comments above `HEADERS` in
+  `docs/google-apps-script.gs` for why.
 - `POST /api/career-interest` — talent community signups. Sent as
   `multipart/form-data` because of the optional resume upload.
 - `POST /api/contact` — general inquiries from families, referral
@@ -110,6 +126,14 @@ events, called from the relevant components:
 
 `hero_interest_click`, `family_form_start`, `family_form_submit`,
 `survey_complete`, `career_click`, `career_form_submit`, `contact_click`.
+
+`survey_complete` (fired from `FamilyInterestForm.tsx`) carries a few
+non-sensitive, structured properties about the step 2 survey answers:
+`survey_version`, `answered_schedule_questions` (boolean),
+`answered_pricing_question` (boolean), and `willing_to_talk`
+(`"yes"|"maybe"|"no"|"not_answered"`). Names, emails, phone numbers, and
+free-text answers (the "other" fields, the confidence-requirement
+textarea) are never sent to analytics.
 
 No analytics provider is wired up yet — events currently log to the
 console in development. Point `track()` at your provider of choice
