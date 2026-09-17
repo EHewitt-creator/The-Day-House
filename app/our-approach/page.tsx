@@ -19,7 +19,7 @@ export default function OurApproachPage() {
         </h1>
         <p className="mt-6 max-w-2xl text-xl text-ink-700">
           Most programs are organized around what someone can no longer do.
-          The Day House starts from the opposite question: what can this
+          The Day House starts from the opposite question: What can this
           person still do, enjoy, and contribute, today?
         </p>
         <p className="mt-4 max-w-2xl text-lg text-ink-700">
