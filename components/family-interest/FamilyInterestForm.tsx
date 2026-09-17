@@ -159,7 +159,7 @@ export default function FamilyInterestForm() {
   }
 
   return (
-    <div ref={containerRef} tabIndex={-1} className="outline-none">
+    <div ref={containerRef} tabIndex={-1} className="scroll-mt-28 outline-none">
       {step === "done" && (
         <SuccessMessage
           heading="Thank you."

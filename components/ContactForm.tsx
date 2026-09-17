@@ -94,7 +94,7 @@ export default function ContactForm() {
 
   if (done) {
     return (
-      <div ref={containerRef} tabIndex={-1} className="outline-none">
+      <div ref={containerRef} tabIndex={-1} className="scroll-mt-28 outline-none">
         <SuccessMessage
           heading="Thank you for reaching out."
           message="We'll get back to you soon."

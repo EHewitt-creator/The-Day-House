@@ -105,7 +105,7 @@ export default function CareerForm() {
 
   if (done) {
     return (
-      <div ref={containerRef} tabIndex={-1} className="outline-none">
+      <div ref={containerRef} tabIndex={-1} className="scroll-mt-28 outline-none">
         <SuccessMessage
           heading="Thanks for your interest in helping build The Day House."
           message="We'll keep your information on file and reach out as opportunities develop."
