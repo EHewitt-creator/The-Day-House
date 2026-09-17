@@ -80,12 +80,7 @@ export default function Pillars() {
           </p>
         </div>
 
-        <p className="mt-10 rounded-xl2 bg-cream px-6 py-6 text-xl font-semibold text-sage-700 shadow-soft sm:text-2xl">
-          Support should help someone participate in life, not simply keep
-          them occupied.
-        </p>
-
-        <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2">
+        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2">
           {PILLARS.map((pillar) => (
             <div
               key={pillar.title}
@@ -103,6 +98,11 @@ export default function Pillars() {
             </div>
           ))}
         </div>
+
+        <p className="mt-12 text-xl font-semibold text-sage-700 sm:text-2xl">
+          Support should help someone participate in life, not simply keep
+          them occupied.
+        </p>
       </div>
     </section>
   );
