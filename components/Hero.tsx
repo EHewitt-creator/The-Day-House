@@ -9,7 +9,7 @@ import { track } from "@/lib/analytics";
 export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-peach-100 via-cream to-cream">
-      <div className="mx-auto grid max-w-content items-center gap-12 px-6 py-16 sm:px-8 lg:grid-cols-2 lg:py-24">
+      <div className="mx-auto grid max-w-content items-center gap-12 px-6 pb-16 pt-8 sm:px-8 sm:pt-10 lg:grid-cols-2 lg:pb-24 lg:pt-16">
         <div>
           <span className="eyebrow">Coming Soon to the Treasure Valley</span>
 
