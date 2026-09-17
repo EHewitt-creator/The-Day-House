@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import elvinaPhoto from "@/public/founders/elvina-hewitt.jpg";
 import robbinPhoto from "@/public/founders/robbin-hewitt.jpg";
 
@@ -17,6 +18,14 @@ export default function AboutPage() {
         <h1 className="mt-4 max-w-3xl text-4xl font-semibold sm:text-5xl">
           Built by people who believe dementia care can be better.
         </h1>
+
+        <p className="mt-6 max-w-2xl text-lg text-ink-700">
+          The Day House started with a simple frustration: too many daytime
+          options for adults with memory loss focus on keeping someone safe
+          and occupied, rather than genuinely engaged. Elvina and Robbin are
+          building something different, starting from what a person can
+          still do, not what they&rsquo;ve lost.
+        </p>
 
         <div className="mt-12 grid gap-12 lg:grid-cols-2">
           <Image
@@ -59,7 +68,13 @@ export default function AboutPage() {
           />
         </div>
 
-        <div className="mt-16 max-w-3xl rounded-xl2 bg-sage-50 p-6 sm:p-8">
+        <p className="mt-16 max-w-2xl text-lg text-ink-700">
+          Elvina leads clinical care and day-to-day programming; Robbin leads
+          safety, facilities, and operations. Together, that combination is
+          meant to make The Day House both warm and dependable.
+        </p>
+
+        <div className="mt-8 max-w-3xl rounded-xl2 bg-sage-50 p-6 sm:p-8">
           <p className="text-xl font-medium text-sage-700">
             Together, they are building The Day House around a simple
             belief: people living with dementia deserve meaningful days
@@ -67,6 +82,12 @@ export default function AboutPage() {
             families deserve dependable support that helps them continue
             caring for the people they love.
           </p>
+        </div>
+
+        <div className="mt-10">
+          <Link href="/#family-interest" className="btn-primary">
+            Join Our Interest List
+          </Link>
         </div>
       </section>
     </>

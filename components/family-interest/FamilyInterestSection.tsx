@@ -15,7 +15,9 @@ export default function FamilyInterestSection() {
             programming, pricing, and enrollment availability.
           </p>
           <p className="mt-3 text-base font-medium text-sage-700">
-            Joining the list does not commit you to enrollment.
+            Joining the list does not commit you to enrollment. We&rsquo;ll
+            use your information only to share Day House updates and better
+            understand what local families need.
           </p>
         </div>
 

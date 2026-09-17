@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 type Tone = "terracotta" | "sage" | "peach";
 
 const TONE_CLASSES: Record<Tone, string> = {
@@ -66,16 +68,16 @@ const RHYTHM: { title: string; description: string; tone: Tone; icon: React.Reac
   },
 ];
 
-export default function DayInLife() {
+export default function DayInLife({ showApproachLink = false }: { showApproachLink?: boolean }) {
   return (
     <section className="section">
       <div className="max-w-2xl">
         <span className="eyebrow">A Day at The Day House</span>
         <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">What a day may feel like.</h2>
         <p className="mt-5 text-lg text-ink-700">
-          Every day has a predictable rhythm, not one compulsory activity
-          schedule. Participants move between these kinds of moments and
-          choose what fits how they feel.
+          A day might include coffee and conversation, gardening, cooking,
+          movement, or quiet time, a predictable rhythm, not one compulsory
+          schedule. Participants choose what fits how they feel.
         </p>
       </div>
 
@@ -97,6 +99,14 @@ export default function DayInLife() {
           </div>
         ))}
       </div>
+
+      {showApproachLink && (
+        <div className="mt-2">
+          <Link href="/our-approach" className="btn-ghost">
+            Learn About Our Approach
+          </Link>
+        </div>
+      )}
     </section>
   );
 }

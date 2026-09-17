@@ -67,16 +67,12 @@ export default function Pillars() {
     <section className="bg-sage-50">
       <div className="section">
         <div className="max-w-2xl">
-          <span className="eyebrow">Our Approach</span>
+          <span className="eyebrow">Why The Day House</span>
           <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">
             Let&rsquo;s make the day matter.
           </h2>
           <p className="mt-5 text-lg text-ink-700">
             At The Day House, we focus on <strong className="font-semibold">what remains possible</strong>.
-          </p>
-          <p className="mt-3 text-lg text-ink-700">
-            Our approach is built around meaningful engagement, independence,
-            and respect for the person behind the diagnosis.
           </p>
         </div>
 
