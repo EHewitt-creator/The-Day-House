@@ -98,7 +98,12 @@ export default function FamilyValue() {
               <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-cream text-terracotta-700">
                 {item.icon}
               </span>
-              {item.label}
+              {/* min-w-0 lets this text actually wrap instead of forcing
+                  the tile wider than its grid column — without it, a flex
+                  item's default min-width is its longest unbreakable word
+                  ("appointments"), so on narrow phones that word pushed
+                  past the tile's right edge instead of wrapping inside it. */}
+              <span className="min-w-0 flex-1">{item.label}</span>
             </li>
           ))}
         </ul>
