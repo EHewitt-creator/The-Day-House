@@ -19,6 +19,14 @@ export default function FamilyInterestSection() {
             use your information only to share Day House updates and better
             understand what local families need.
           </p>
+          <p className="mt-4 text-base text-ink-700">
+            Not ready to join the list yet?{" "}
+            <a href="/survey" className="font-semibold text-terracotta-700 underline">
+              Take our planning survey
+            </a>{" "}
+            instead &mdash; it&rsquo;s optional, anonymous-friendly, and
+            still helps us plan hours and pricing.
+          </p>
         </div>
 
         <div className="rounded-2xl border border-ink/5 bg-cream p-6 shadow-soft sm:p-10">
