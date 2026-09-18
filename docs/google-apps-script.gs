@@ -17,10 +17,12 @@
  *    up in the sheet. Apps Script will prompt you to authorize Drive and
  *    Sheets access the first time it runs (needed for resume storage).
  *
- * This creates three tabs automatically the first time each is used:
- * "Family Leads", "Career Leads", and "Contact Messages". Resumes are
- * saved to a Drive folder named "The Day House — Resumes" (created
- * automatically) and linked from the Career Leads row.
+ * This creates four tabs automatically the first time each is used:
+ * "Family Leads", "Career Leads", "Contact Messages", and "Survey
+ * Responses" (the standalone planning survey at /survey — see
+ * StandaloneSurveyPayload in types/leads.ts). Resumes are saved to a Drive
+ * folder named "The Day House — Resumes" (created automatically) and
+ * linked from the Career Leads row.
  *
  * Each new row also sends a short email notification (see NOTIFY_EMAILS
  * below) so submissions don't sit unseen in the sheet. It's sent from the
@@ -35,6 +37,7 @@ const NOTIFY_EMAILS = {
   "Family Leads": "info@yourdayhouse.com",
   "Career Leads": "careers@yourdayhouse.com",
   "Contact Messages": "info@yourdayhouse.com",
+  "Survey Responses": "info@yourdayhouse.com",
 };
 
 const RESUME_FOLDER_NAME = "The Day House — Resumes";
@@ -117,6 +120,25 @@ const HEADERS = {
     "UTM Campaign",
     "UTM Content",
   ],
+  "Survey Responses": [
+    "Submitted At",
+    "Name",
+    "Email",
+    "Phone",
+    "Survey Version",
+    "Preferred Weekdays",
+    "Preferred Start Time",
+    "Preferred Standard Pickup Time",
+    "Extended Pickup Frequency (5:30 PM)",
+    "Realistic Usage At $200/Day",
+    "Non-Price Barriers",
+    "Confidence Requirement",
+    "Willing To Talk (15min Conversation)",
+    "UTM Source",
+    "UTM Medium",
+    "UTM Campaign",
+    "UTM Content",
+  ],
 };
 
 function doPost(e) {
@@ -135,6 +157,8 @@ function doPost(e) {
       row = buildFamilyLeadRow(body);
     } else if (sheetName === "Career Leads") {
       row = buildCareerLeadRow(body);
+    } else if (sheetName === "Survey Responses") {
+      row = buildSurveyRow(body);
     } else {
       row = buildContactRow(body);
     }
@@ -243,6 +267,42 @@ function buildCareerLeadRow(body) {
   ];
 }
 
+// Standalone /survey submissions — same question set as the family
+// interest form's step 2 (body.survey has the same shape as that step2
+// object), but with no required step-1 lead capture in front of it. Name,
+// email, and phone are all optional here and may be blank.
+function buildSurveyRow(body) {
+  const survey = body.survey || {};
+  const utm = body.utm || {};
+
+  return [
+    body.submittedAt || new Date().toISOString(),
+    body.name || "",
+    body.email || "",
+    body.phone || "",
+    survey.surveyVersion || "",
+    weekdaysSummary(survey),
+    survey.preferredStartTime
+      ? survey.preferredStartTime +
+        (survey.preferredStartTimeOther ? " (" + survey.preferredStartTimeOther + ")" : "")
+      : "",
+    survey.preferredStandardPickupTime
+      ? survey.preferredStandardPickupTime +
+        (survey.preferredStandardPickupTimeOther ? " (" + survey.preferredStandardPickupTimeOther + ")" : "")
+      : "",
+    survey.extendedPickupFrequency || "",
+    survey.realisticUsageAt200 || "",
+    (survey.nonPriceBarriers || []).join(", ") +
+      (survey.nonPriceBarriersOther ? " (" + survey.nonPriceBarriersOther + ")" : ""),
+    survey.confidenceRequirement || "",
+    survey.willingToTalk || "",
+    utm.utm_source || "",
+    utm.utm_medium || "",
+    utm.utm_campaign || "",
+    utm.utm_content || "",
+  ];
+}
+
 function buildContactRow(body) {
   const utm = body.utm || {};
   return [
@@ -305,6 +365,14 @@ function sendNotificationEmail(sheetName, body) {
         "Phone: " + (body.phone || ""),
         "Area of interest: " + (body.areaOfInterest || ""),
         "Resume attached: " + (body.resumeFileName ? "Yes (" + body.resumeFileName + ")" : "No"),
+      ];
+    } else if (sheetName === "Survey Responses") {
+      subject = "New planning survey response" + (body.name ? ": " + body.name : " (anonymous)");
+      summaryLines = [
+        "Name: " + (body.name || "(not given)"),
+        "Email: " + (body.email || "(not given)"),
+        "Phone: " + (body.phone || "(not given)"),
+        "Willing to talk 15 min: " + ((body.survey && body.survey.willingToTalk) || ""),
       ];
     } else {
       subject = "New contact message: " + (body.name || "unknown name");

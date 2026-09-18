@@ -10,7 +10,7 @@
 // still log to the console and return success, so the site works out of
 // the box before this is configured.
 
-type SheetName = "Family Leads" | "Career Leads" | "Contact Messages";
+type SheetName = "Family Leads" | "Career Leads" | "Contact Messages" | "Survey Responses";
 
 export async function forwardToSheet(
   sheet: SheetName,

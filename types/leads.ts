@@ -138,3 +138,21 @@ export type ContactPayload = {
   submittedAt: string;
   source: "contact_form";
 };
+
+/**
+ * The same "2026-09-hours-pricing-v1" planning survey as step 2 of the
+ * family interest form (see FamilyInterestStepTwo above), but reachable on
+ * its own at /survey for anyone who wants to help shape hours, pricing, and
+ * programming without joining the interest list. Contact info is entirely
+ * optional here — unlike the interest form, there's no required lead
+ * capture step in front of it.
+ */
+export type StandaloneSurveyPayload = {
+  name?: string;
+  email?: string;
+  phone?: string;
+  survey: FamilyInterestStepTwo;
+  utm: UtmParams;
+  submittedAt: string;
+  source: "standalone_survey";
+};

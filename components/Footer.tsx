@@ -50,6 +50,11 @@ export default function Footer() {
                   Contact
                 </Link>
               </li>
+              <li>
+                <Link href="/survey" className="hover:text-terracotta-400">
+                  Planning Survey
+                </Link>
+              </li>
             </ul>
           </div>
 
