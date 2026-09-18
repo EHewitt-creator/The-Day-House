@@ -52,7 +52,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/survey" className="hover:text-terracotta-400">
-                  Planning Survey
+                  Survey
                 </Link>
               </li>
             </ul>
