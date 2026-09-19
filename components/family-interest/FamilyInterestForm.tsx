@@ -211,14 +211,16 @@ export default function FamilyInterestForm() {
 
           {step === "two" && (
             <form onSubmit={handleStepTwoSubmit} noValidate>
-              <div role="status" className="mb-6 rounded-xl2 bg-terracotta-50 p-4 text-base text-ink-700">
-                <p className="font-semibold text-sage-700">You&rsquo;re on the list.</p>
-                <p className="mt-1">
-                  Would you answer a short optional survey to help us plan The
-                  Day House? Your answers will help us determine operating
-                  hours, extended pickup needs, and pricing before we open.
-                </p>
-                <p className="mt-1">Every question is optional.</p>
+              <div role="status" className="mb-6">
+                <h2 className="text-2xl font-bold text-sage-700 sm:text-3xl">You&rsquo;re on the list.</h2>
+                <div className="mt-3 rounded-xl2 bg-terracotta-50 p-4 text-base text-ink-700">
+                  <p>
+                    Would you answer a short optional survey to help us plan The
+                    Day House? Your answers will help us determine operating
+                    hours, extended pickup needs, and pricing before we open.
+                  </p>
+                  <p className="mt-1">Every question is optional.</p>
+                </div>
               </div>
 
               <FamilyInterestStepTwo value={stepTwo} onChange={(patch) => setStepTwo((prev) => ({ ...prev, ...patch }))} />
