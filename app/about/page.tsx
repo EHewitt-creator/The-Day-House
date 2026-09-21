@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import elvinaPhoto from "@/public/founders/elvina-hewitt.jpg";
 import robbinPhoto from "@/public/founders/robbin-hewitt.jpg";
-import { breadcrumbJsonLd, pageMetadata, SITE_NAME, SITE_URL } from "@/lib/seo";
+import { breadcrumbJsonLd, pageMetadata, SITE_URL } from "@/lib/seo";
 
 export const metadata = pageMetadata({
   title: "About",
@@ -14,25 +14,48 @@ export const metadata = pageMetadata({
 // Person schema for the two named founders, built only from facts already
 // stated in this page's own copy above (roles, credentials) — nothing added
 // that isn't already visible to a visitor reading the page.
+//
+// The two Person @ids (#elvina-hewitt / #robbin-hewitt) match the stub
+// entries referenced from the homepage's Organization.founder field (see
+// app/page.tsx's HOME_JSON_LD) — same @id, same real person, fuller detail
+// here where the page is actually about them.
+//
+// AboutPage wraps the whole graph so this page's own identity (not just its
+// two Person entities) is represented — isPartOf ties it back to the
+// sitewide WebSite, about ties it to the Organization it's describing.
 const FOUNDERS_JSON_LD = {
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "AboutPage",
+      "@id": `${SITE_URL}/about#webpage`,
+      url: `${SITE_URL}/about`,
+      name: "About The Day House",
+      isPartOf: { "@id": `${SITE_URL}/#website` },
+      about: { "@id": `${SITE_URL}/#organization` },
+      mainEntity: [
+        { "@id": `${SITE_URL}/about#elvina-hewitt` },
+        { "@id": `${SITE_URL}/about#robbin-hewitt` },
+      ],
+    },
+    {
       "@type": "Person",
+      "@id": `${SITE_URL}/about#elvina-hewitt`,
       name: "Elvina Hewitt",
       honorificSuffix: "RN, MBA",
       jobTitle: "Co-Founder",
       description:
         "Co-founder of The Day House with a background in Emergency Services clinical leadership and direct experience in Adult Day Health.",
-      worksFor: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
+      worksFor: { "@id": `${SITE_URL}/#organization` },
     },
     {
       "@type": "Person",
+      "@id": `${SITE_URL}/about#robbin-hewitt`,
       name: "Robbin Hewitt",
       jobTitle: "Co-Founder",
       description:
         "Co-founder of The Day House with a background as a firefighter and paramedic, focused on safety, emergency preparedness, and operations.",
-      worksFor: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
+      worksFor: { "@id": `${SITE_URL}/#organization` },
     },
   ],
 };

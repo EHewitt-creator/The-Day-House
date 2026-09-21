@@ -1,5 +1,5 @@
 import ContactForm from "@/components/ContactForm";
-import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
+import { breadcrumbJsonLd, pageMetadata, SITE_URL } from "@/lib/seo";
 
 export const metadata = pageMetadata({
   title: "Contact",
@@ -8,6 +8,20 @@ export const metadata = pageMetadata({
   path: "/contact",
 });
 
+// ContactPage identifies this route's purpose to search engines; `about`
+// points at the same Organization entity defined on the homepage (see
+// app/page.tsx's HOME_JSON_LD), which already carries the real contact
+// email via its contactPoint — no need to repeat it here.
+const CONTACT_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "@id": `${SITE_URL}/contact#webpage`,
+  url: `${SITE_URL}/contact`,
+  name: "Contact The Day House",
+  isPartOf: { "@id": `${SITE_URL}/#website` },
+  about: { "@id": `${SITE_URL}/#organization` },
+};
+
 export default function ContactPage() {
   return (
     <section className="section">
@@ -15,6 +29,11 @@ export default function ContactPage() {
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd("Contact", "/contact")) }}
+      />
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(CONTACT_JSON_LD) }}
       />
       <span className="eyebrow">Contact</span>
       <h1 className="mt-4 max-w-3xl text-4xl font-semibold sm:text-5xl">

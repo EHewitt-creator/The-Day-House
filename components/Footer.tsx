@@ -31,7 +31,7 @@ export default function Footer() {
             </p>
             <ul className="space-y-3 text-base">
               <li>
-                <Link href="/our-approach" className="hover:text-terracotta-400">
+                <Link href="/#approach" className="hover:text-terracotta-400">
                   Our Approach
                 </Link>
               </li>

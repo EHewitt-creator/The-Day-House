@@ -17,6 +17,18 @@ export const metadata: Metadata = {
 // address/telephone/openingHours (LocalBusiness fields we can't populate
 // truthfully pre-opening) — see README for why this stays Organization
 // rather than LocalBusiness until there's a physical location to report.
+//
+// areaServed is a structured Place rather than a bare string — schema.org
+// accepts either, but a Place is the more correct, machine-readable form.
+//
+// contactPoint.email reuses the same public inbox already published on the
+// privacy page (app/privacy/page.tsx's EMAIL constant) — nothing invented.
+//
+// founder entries share their @id with the full Person entities defined in
+// app/about/page.tsx (see FOUNDERS_JSON_LD there). Keeping the same @id on
+// both pages is what lets a crawler treat them as the same real-world
+// person rather than two unrelated stubs; the fuller bio/credentials live
+// once, on the About page, so they don't need to be repeated here.
 const HOME_JSON_LD = {
   "@context": "https://schema.org",
   "@graph": [
@@ -28,13 +40,27 @@ const HOME_JSON_LD = {
       logo: `${SITE_URL}/brand/logo-grid.png`,
       description:
         "The Day House is a dementia-informed adult day program and daytime community coming soon to the Boise metro area for adults living with memory loss and dementia.",
-      areaServed: "Boise metro area, Idaho",
+      slogan: "Purposeful days. Meaningful connection. Dependable respite.",
+      areaServed: {
+        "@type": "Place",
+        name: "Boise metro area, Idaho",
+      },
+      contactPoint: {
+        "@type": "ContactPoint",
+        email: "info@yourdayhouse.com",
+        contactType: "customer service",
+      },
+      founder: [
+        { "@type": "Person", "@id": `${SITE_URL}/about#elvina-hewitt`, name: "Elvina Hewitt" },
+        { "@type": "Person", "@id": `${SITE_URL}/about#robbin-hewitt`, name: "Robbin Hewitt" },
+      ],
     },
     {
       "@type": "WebSite",
       "@id": `${SITE_URL}/#website`,
       url: SITE_URL,
       name: SITE_NAME,
+      inLanguage: "en-US",
       publisher: { "@id": `${SITE_URL}/#organization` },
     },
   ],
