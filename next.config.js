@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // Drops the "X-Powered-By: Next.js" response header. No effect on
+  // Lighthouse/PSI score, just one fewer header and one fewer thing
+  // revealing the stack to anyone poking at response headers.
+  poweredByHeader: false,
   images: {
     // Default is webp only; avif is smaller for most photos and Vercel's
     // Image Optimization API serves it automatically to browsers that

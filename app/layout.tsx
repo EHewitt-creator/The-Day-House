@@ -31,9 +31,9 @@ export const metadata: Metadata = {
     // mark; consider a fuller designed image with real photography once
     // that's available. Interior pages don't define their own OG image, so
     // this one is also what they show when shared — on-brand, if generic.
-    title: "The Day House | Adult Day Program for Dementia in the Boise Metro Area",
+    title: "The Day House | Adult Day Program in the Boise Metro Area",
     description:
-      "The Day House is a new daytime community coming soon to the Boise metro area for adults living with memory loss and dementia. Join our interest list for opening updates and enrollment information.",
+      "A welcoming adult day program designed with memory loss and dementia in mind, helping people stay engaged while continuing to live at home. Coming to the Boise metro area in 2027.",
     url: SITE_URL,
     siteName: SITE_NAME,
     locale: "en_US",

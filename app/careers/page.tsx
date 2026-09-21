@@ -1,5 +1,10 @@
-import CareerForm from "@/components/CareerForm";
+import dynamic from "next/dynamic";
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
+
+// See FamilyInterestSection.tsx for why this is dynamic() rather than a
+// plain import: splits the form's JS into its own chunk, SSR stays on so
+// the server-rendered HTML (and CLS) is unaffected.
+const CareerForm = dynamic(() => import("@/components/CareerForm"));
 
 export const metadata = pageMetadata({
   title: "Careers",

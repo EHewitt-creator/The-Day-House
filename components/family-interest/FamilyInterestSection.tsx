@@ -1,4 +1,14 @@
-import FamilyInterestForm from "@/components/family-interest/FamilyInterestForm";
+import dynamic from "next/dynamic";
+
+// dynamic() (not a plain import) splits the form's JS — the two-step field
+// set, its validation, and its submit/success states — into its own chunk
+// instead of bundling it into the same JS the whole homepage has to parse
+// and execute before the page is interactive. ssr stays on (the default),
+// so the server-rendered HTML is unaffected: a visitor's first paint still
+// shows the real form, not a placeholder, and there's nothing here for a
+// crawler or a no-JS visitor to miss. Only the JS needed to make its fields
+// interactive loads as a separate, deferred request.
+const FamilyInterestForm = dynamic(() => import("@/components/family-interest/FamilyInterestForm"));
 
 export default function FamilyInterestSection() {
   return (

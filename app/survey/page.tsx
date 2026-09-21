@@ -1,5 +1,10 @@
-import SurveyForm from "@/components/survey/SurveyForm";
+import dynamic from "next/dynamic";
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
+
+// See FamilyInterestSection.tsx for why this is dynamic() rather than a
+// plain import: splits the form's JS into its own chunk, SSR stays on so
+// the server-rendered HTML (and CLS) is unaffected.
+const SurveyForm = dynamic(() => import("@/components/survey/SurveyForm"));
 
 export const metadata = pageMetadata({
   title: "Family Planning Survey",
