@@ -4,7 +4,7 @@ import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "Careers",
   description:
-    "Join the team building The Day House, a new dementia daytime program opening soon in the Treasure Valley. Care partner, activities, nursing, and operations roles.",
+    "Join the team building The Day House, a new dementia daytime program opening soon in the Boise metro area. Care partner, activities, nursing, and operations roles.",
   path: "/careers",
 });
 

@@ -4,7 +4,7 @@ import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "Contact",
   description:
-    "Get in touch with The Day House, a new dementia daytime program opening soon in the Treasure Valley. For families, referral partners, and community organizations.",
+    "Get in touch with The Day House, a new dementia daytime program opening soon in the Boise metro area. For families, referral partners, and community organizations.",
   path: "/contact",
 });
 
@@ -25,7 +25,7 @@ export default function ContactPage() {
         organizations are all welcome to reach out. If you&rsquo;re a family
         looking to join our interest list, you can also do that directly
         from our{" "}
-        <a href="/#family-interest" className="font-semibold text-terracotta-700 underline">
+        <a href="/#interest" className="font-semibold text-terracotta-700 underline">
           homepage
         </a>
         .

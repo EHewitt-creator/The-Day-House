@@ -154,7 +154,7 @@ export default function PrivacyPage() {
             "Add you to The Day House interest list",
             "Provide opening, tour, programming, pricing, and enrollment updates",
             "Respond to questions and requests",
-            "Understand demand for adult day services in the Treasure Valley",
+            "Understand demand for adult day services in the Boise metro area",
             "Evaluate preferred hours, scheduling needs, pricing, services, and barriers",
             "Plan our location, staffing, programming, and business operations",
             "Invite interested individuals to optional research conversations",
@@ -345,7 +345,7 @@ export default function PrivacyPage() {
         <p className="text-ink">
           The Day House
           <br />
-          Treasure Valley, Idaho
+          Boise metro area, Idaho
           <br />
           Email: {EMAIL_LINK}
         </p>

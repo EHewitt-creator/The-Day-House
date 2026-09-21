@@ -13,7 +13,7 @@ export default function Footer() {
             </div>
             <BrandStatementFooter className="max-w-sm" />
             <p className="mt-3 text-sm font-semibold tracking-wide text-terracotta-400">
-              Coming soon to the Treasure Valley, Idaho
+              Coming soon to the Boise metro area, Idaho
             </p>
           </div>
 

@@ -17,7 +17,7 @@ export default function MobileStickyCta() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const formSection = document.getElementById("family-interest");
+    const formSection = document.getElementById("interest");
     let pastThreshold = false;
     let formInView = false;
 
@@ -59,7 +59,7 @@ export default function MobileStickyCta() {
       style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
     >
       <Link
-        href="/#family-interest"
+        href="/#interest"
         className="btn-primary block w-full text-center"
         onClick={() => track("hero_interest_click", { location: "mobile_sticky" })}
       >

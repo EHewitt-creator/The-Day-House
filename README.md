@@ -2,7 +2,7 @@
 
 A Next.js (App Router) + TypeScript + Tailwind CSS marketing site for The
 Day House, a new social adult day program for adults living with memory
-loss and dementia, opening in the Treasure Valley, Idaho.
+loss and dementia, opening in the Boise metro area, Idaho.
 
 ## Getting started
 

@@ -14,7 +14,7 @@ export default function ClosingCta() {
     <section className="bg-terracotta-600 text-cream">
       <div className="section flex flex-col items-center gap-6 !py-14 text-center lg:!py-16">
         <h2 className="max-w-2xl text-2xl font-semibold sm:text-3xl">
-          Help shape a better daytime option for Treasure Valley families.
+          Help shape a better daytime option for Boise-area families.
         </h2>
         <Link
           href="/#family-interest"

@@ -1,12 +1,9 @@
 import type { Metadata } from "next";
 import Hero from "@/components/Hero";
-import Pillars from "@/components/Pillars";
-import DayInLife from "@/components/DayInLife";
-import FamilyValue from "@/components/FamilyValue";
+import OurApproach from "@/components/OurApproach";
+import ProgramDetails from "@/components/ProgramDetails";
 import FamilyInterestSection from "@/components/family-interest/FamilyInterestSection";
-import FoundersPreview from "@/components/FoundersPreview";
-import SecondaryPathways from "@/components/SecondaryPathways";
-import ClosingCta from "@/components/ClosingCta";
+import FounderLine from "@/components/FounderLine";
 import MobileStickyCta from "@/components/MobileStickyCta";
 import { SITE_NAME, SITE_URL } from "@/lib/seo";
 
@@ -30,8 +27,8 @@ const HOME_JSON_LD = {
       url: SITE_URL,
       logo: `${SITE_URL}/brand/logo-grid.png`,
       description:
-        "The Day House is a dementia-informed adult day program and daytime community coming soon to the Treasure Valley for adults living with memory loss and dementia.",
-      areaServed: "Treasure Valley, Idaho",
+        "The Day House is a dementia-informed adult day program and daytime community coming soon to the Boise metro area for adults living with memory loss and dementia.",
+      areaServed: "Boise metro area, Idaho",
     },
     {
       "@type": "WebSite",
@@ -52,13 +49,10 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(HOME_JSON_LD) }}
       />
       <Hero />
-      <Pillars />
-      <DayInLife showApproachLink />
-      <FamilyValue />
+      <OurApproach />
+      <ProgramDetails />
       <FamilyInterestSection />
-      <FoundersPreview />
-      <SecondaryPathways />
-      <ClosingCta />
+      <FounderLine />
       <MobileStickyCta />
     </>
   );

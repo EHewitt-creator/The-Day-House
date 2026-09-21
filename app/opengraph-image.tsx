@@ -34,7 +34,7 @@ export default function Image() {
           A better way to spend the day.
         </div>
         <div style={{ fontSize: 28, color: "#5C6B4F", marginTop: 20, display: "flex" }}>
-          The Day House · Coming soon to the Treasure Valley, Idaho
+          The Day House · Coming soon to the Boise metro area, Idaho
         </div>
       </div>
     ),

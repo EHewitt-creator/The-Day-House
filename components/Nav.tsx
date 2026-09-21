@@ -5,11 +5,13 @@ import Link from "next/link";
 import Logo from "@/components/Logo";
 import { track } from "@/lib/analytics";
 
+// Careers and Contact remain reachable from the footer on every page — see
+// Footer.tsx's "Explore" list — so they're deliberately left out of this
+// primary nav to keep it focused on the homepage's own sections plus About.
 const NAV_LINKS = [
-  { href: "/", label: "Home" },
+  { href: "/#approach", label: "Our Approach" },
+  { href: "/#details", label: "Program Details" },
   { href: "/about", label: "About" },
-  { href: "/careers", label: "Careers" },
-  { href: "/contact", label: "Contact" },
 ];
 
 export default function Nav() {
@@ -37,7 +39,7 @@ export default function Nav() {
 
         <div className="hidden lg:block">
           <Link
-            href="/#family-interest"
+            href="/#interest"
             className="btn-primary"
             onClick={() => track("hero_interest_click", { location: "nav" })}
           >
@@ -93,7 +95,7 @@ export default function Nav() {
             ))}
           </ul>
           <Link
-            href="/#family-interest"
+            href="/#interest"
             className="btn-primary mt-4 w-full"
             onClick={() => {
               track("hero_interest_click", { location: "mobile_nav" });

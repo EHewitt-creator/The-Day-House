@@ -4,7 +4,7 @@ import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "Family Planning Survey",
   description:
-    "Help The Day House plan hours, pricing, and programming for our upcoming adult day program in the Treasure Valley. A short, optional, anonymous-friendly survey — no interest list sign-up required.",
+    "Help The Day House plan hours, pricing, and programming for our upcoming adult day program in the Boise metro area. A short, optional, anonymous-friendly survey — no interest list sign-up required.",
   path: "/survey",
 });
 

@@ -2,7 +2,7 @@ import FamilyInterestForm from "@/components/family-interest/FamilyInterestForm"
 
 export default function FamilyInterestSection() {
   return (
-    <section id="family-interest" className="scroll-mt-28 bg-cream-100">
+    <section id="interest" className="scroll-mt-28 bg-cream-100">
       <div className="section grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
         <div>
           <span className="eyebrow">Interest List</span>
@@ -10,14 +10,12 @@ export default function FamilyInterestSection() {
             Interested in The Day House?
           </h2>
           <p className="mt-5 text-lg text-ink-700">
-            We&rsquo;re preparing to open our first Treasure Valley location.
-            Join our interest list to receive updates about opening, tours,
-            programming, pricing, and enrollment availability.
+            Join the list for updates about the location, opening, tours,
+            final hours, pricing, and enrollment availability.
           </p>
           <p className="mt-6 rounded-xl2 bg-sage-50 p-4 text-base font-medium text-sage-700">
-            Joining the list does not commit you to enrollment. We&rsquo;ll
-            use your information only to share Day House updates and better
-            understand what local families need.
+            Joining the list does not commit you to enrollment. Your input
+            helps shape a program that works for Boise-area families.
           </p>
           <p className="mt-4 text-base text-ink-700">
             Not ready to join the list yet?{" "}

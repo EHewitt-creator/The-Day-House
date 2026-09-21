@@ -46,7 +46,7 @@ export default function OurApproachPage() {
           Want to see this in practice once we open?
         </h2>
         <div className="mt-6">
-          <Link href="/#family-interest" className="btn-primary">
+          <Link href="/#interest" className="btn-primary">
             Join Our Interest List
           </Link>
         </div>

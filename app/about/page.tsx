@@ -7,7 +7,7 @@ import { breadcrumbJsonLd, pageMetadata, SITE_NAME, SITE_URL } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "About",
   description:
-    "Meet the founders of The Day House, Elvina Hewitt, RN, MBA, and Robbin Hewitt, and learn why they're building a better daytime program for adults living with dementia in the Treasure Valley.",
+    "Meet the founders of The Day House, Elvina Hewitt, RN, MBA, and Robbin Hewitt, and learn why they're building a better daytime program for adults living with dementia in the Boise metro area.",
   path: "/about",
 });
 
@@ -122,7 +122,7 @@ export default function AboutPage() {
         </div>
 
         <div className="mt-10">
-          <Link href="/#family-interest" className="btn-primary">
+          <Link href="/#interest" className="btn-primary">
             Join Our Interest List
           </Link>
         </div>
