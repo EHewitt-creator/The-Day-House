@@ -155,7 +155,6 @@ export default function FamilyInterestStepOne({ value, errors, onChange }: Props
         <label htmlFor="consentToContact" className="text-sm text-ink-700">
           I consent to receive emails and updates from The Day House about
           opening, tours, programming, pricing, and enrollment availability.
-          Joining this list does not commit me to enrollment.
         </label>
       </div>
       {errors.consentToContact && <p id="consent-error" className="field-error">{errors.consentToContact}</p>}
