@@ -88,11 +88,11 @@ export default function AboutPage() {
           founder-led, not a program overview. */}
       <section className="section">
         <span className="eyebrow">About Us</span>
-        <h1 className="mt-4 max-w-3xl text-4xl font-semibold leading-tight sm:text-5xl">
+        <h1 className="mt-4 max-w-3xl text-balance text-4xl font-semibold leading-tight sm:text-5xl">
           Safe and occupied isn&rsquo;t enough.
         </h1>
 
-        <div className="mt-12 grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
+        <div className="mt-12 grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
           <div className="max-w-xl space-y-5 text-lg text-ink-700">
             <p>
               The Day House started with a simple idea: daytime support
