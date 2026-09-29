@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import elvinaPhoto from "@/public/founders/elvina-hewitt.jpg";
 import robbinPhoto from "@/public/founders/robbin-hewitt.jpg";
+import elvinaAndRobbinPhoto from "@/public/founders/elvina-and-robbin.jpg";
 import { JoinedPhrases } from "@/components/BrandStatement";
 import { breadcrumbJsonLd, pageMetadata, SITE_URL } from "@/lib/seo";
 
@@ -91,19 +92,29 @@ export default function AboutPage() {
           We believe a good day should be about more than being cared for.
         </h1>
 
-        <div className="mt-8 max-w-2xl space-y-5 text-lg text-ink-700">
-          <p>
-            The Day House started with a simple idea: adult day should be
-            designed first for the person spending their day there.
-          </p>
-          <p>
-            Caregiver respite matters enormously. But we believe the best
-            respite comes from knowing the person you love has somewhere
-            meaningful to go.
-          </p>
-          <p className="text-base font-semibold text-sage-700">
-            <JoinedPhrases dotClassName="text-terracotta-600" />
-          </p>
+        <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
+          <div className="max-w-xl space-y-5 text-lg text-ink-700">
+            <p>
+              The Day House started with a simple idea: adult day should be
+              designed first for the person spending their day there.
+            </p>
+            <p>
+              Caregiver respite matters enormously. But we believe the best
+              respite comes from knowing the person you love has somewhere
+              meaningful to go.
+            </p>
+            <p className="text-base font-semibold text-sage-700">
+              <JoinedPhrases dotClassName="text-terracotta-600" />
+            </p>
+          </div>
+
+          <Image
+            src={elvinaAndRobbinPhoto}
+            alt="Elvina and Robbin Hewitt, co-founders of The Day House"
+            className="w-full rounded-xl2 object-cover"
+            placeholder="blur"
+            sizes="(min-width: 1024px) 50vw, 100vw"
+          />
         </div>
       </section>
 
