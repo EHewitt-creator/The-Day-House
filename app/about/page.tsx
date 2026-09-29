@@ -92,7 +92,7 @@ export default function AboutPage() {
           We believe a good day should be about more than being cared for.
         </h1>
 
-        <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
+        <div className="mt-12 grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
           <div className="max-w-xl space-y-5 text-lg text-ink-700">
             <p>
               The Day House started with a simple idea: adult day should be
