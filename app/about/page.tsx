@@ -91,39 +91,19 @@ export default function AboutPage() {
           We believe a good day should be about more than being cared for.
         </h1>
 
-        <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
-          <div className="max-w-xl space-y-5 text-lg text-ink-700">
-            <p>
-              The Day House started with a simple idea: adult day should be
-              designed first for the person spending their day there.
-            </p>
-            <p>
-              Caregiver respite matters enormously. But we believe the best
-              respite comes from knowing the person you love has somewhere
-              meaningful to go.
-            </p>
-            <p className="text-base font-semibold text-sage-700">
-              <JoinedPhrases dotClassName="text-terracotta-600" />
-            </p>
-          </div>
-
-          {/*
-            No photo of Elvina and Robbin together currently exists in
-            public/founders/ (only their individual headshots do, used in
-            Section 4 below). Per the brief, this is a placeholder rather
-            than a generated or stock image — swap it out by adding a real
-            joint photo (e.g. public/founders/elvina-and-robbin.jpg) and
-            replacing this <div> with an <Image> the same way Section 4
-            uses elvinaPhoto/robbinPhoto.
-          */}
-          <div className="flex aspect-[4/3] w-full flex-col items-center justify-center gap-2 rounded-xl2 border-2 border-dashed border-sage-300 bg-sage-50 p-8 text-center lg:aspect-square">
-            <span className="text-sm font-semibold uppercase tracking-wide text-sage-600">
-              Photo placeholder
-            </span>
-            <span className="max-w-[26ch] text-base text-sage-700">
-              A photo of Elvina &amp; Robbin together goes here
-            </span>
-          </div>
+        <div className="mt-8 max-w-2xl space-y-5 text-lg text-ink-700">
+          <p>
+            The Day House started with a simple idea: adult day should be
+            designed first for the person spending their day there.
+          </p>
+          <p>
+            Caregiver respite matters enormously. But we believe the best
+            respite comes from knowing the person you love has somewhere
+            meaningful to go.
+          </p>
+          <p className="text-base font-semibold text-sage-700">
+            <JoinedPhrases dotClassName="text-terracotta-600" />
+          </p>
         </div>
       </section>
 
