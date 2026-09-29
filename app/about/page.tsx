@@ -172,7 +172,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <p className="mt-8 max-w-2xl text-xl font-medium text-ink">
+          <p className="mt-12 max-w-2xl text-xl font-medium leading-relaxed text-ink">
             Together, those two vantage points shaped a question: what if we
             built somewhere people wanted to attend, rather than somewhere
             they simply needed to go? The Day House is our answer.
@@ -187,8 +187,8 @@ export default function AboutPage() {
           the homepage. */}
       <section>
         <div className="section">
-          <div className="grid gap-8 lg:grid-cols-2 lg:gap-16">
-            <h2 className="text-2xl font-semibold leading-snug text-sage-700 sm:text-3xl lg:text-4xl">
+          <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
+            <h2 className="text-2xl font-semibold leading-relaxed text-sage-700 sm:text-3xl lg:text-4xl">
               People living with cognitive change are too often defined by
               what they can no longer do.
             </h2>
@@ -308,8 +308,8 @@ export default function AboutPage() {
           </p>
         </div>
 
-        <div className="mt-8 max-w-2xl rounded-xl2 bg-sage-50 p-6 sm:p-8">
-          <p className="text-xl font-medium text-sage-700">
+        <div className="mt-10 max-w-2xl rounded-xl2 bg-sage-50 p-8 sm:p-10">
+          <p className="text-xl font-medium leading-relaxed text-sage-700">
             Credentials matter. But we don&rsquo;t expect a list of degrees
             or job titles to earn a family&rsquo;s trust. That comes from the
             people we hire, how we treat them, the culture we build, how we
