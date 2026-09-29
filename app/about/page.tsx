@@ -229,15 +229,15 @@ export default function AboutPage() {
         <div className="section">
           <span className="eyebrow">Meet Elvina &amp; Robbin</span>
 
-          <div className="mt-10 grid gap-12 lg:grid-cols-2">
+          <div className="mt-10 grid gap-10 lg:grid-cols-[280px_1fr] lg:items-start lg:gap-14">
             <Image
               src={elvinaPhoto}
               alt="Elvina Hewitt, RN, MBA, co-founder of The Day House"
               className="aspect-[4/5] w-full rounded-xl2 object-cover"
               placeholder="blur"
-              sizes="(min-width: 1024px) 50vw, 100vw"
+              sizes="(min-width: 1024px) 280px, 100vw"
             />
-            <div className="flex flex-col justify-center">
+            <div className="flex flex-col justify-center lg:justify-start">
               <h3 className="text-2xl font-semibold">Elvina Hewitt, RN, MBA</h3>
               <p className="mt-3 text-lg text-ink-700">
                 Fourteen years in emergency care at a Level I trauma center
@@ -255,8 +255,8 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="mt-16 grid gap-12 lg:grid-cols-2">
-            <div className="order-2 flex flex-col justify-center lg:order-1">
+          <div className="mt-16 grid gap-10 lg:grid-cols-[1fr_280px] lg:items-start lg:gap-14">
+            <div className="order-2 flex flex-col justify-center lg:order-1 lg:justify-start">
               <h3 className="text-2xl font-semibold">Robbin Hewitt</h3>
               <p className="mt-3 text-lg text-ink-700">
                 Nearly 20 years as a firefighter-paramedic with the City and
@@ -277,7 +277,7 @@ export default function AboutPage() {
               alt="Robbin Hewitt, co-founder of The Day House"
               className="order-1 aspect-[4/5] w-full rounded-xl2 object-cover lg:order-2"
               placeholder="blur"
-              sizes="(min-width: 1024px) 50vw, 100vw"
+              sizes="(min-width: 1024px) 280px, 100vw"
             />
           </div>
 
