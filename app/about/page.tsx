@@ -179,44 +179,44 @@ export default function AboutPage() {
             A different standard for a good day
           </h2>
 
-          <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:gap-16">
-            <div className="space-y-5 text-lg text-ink-700">
-              <p>
-                People living with cognitive change are too often defined by
-                what they can no longer do. We want to start with what they
-                can: understanding the person in front of us, adapting how
-                we communicate, and creating an environment that supports
-                who they are.
-              </p>
-              <p>
-                Some days that might mean creating, moving, helping,
-                talking, or trying something new. Other days it might mean a
-                cup of coffee, music, a walk, or simply enjoying the company
-                of other people.
-              </p>
-              <blockquote className="border-l-4 border-terracotta-500 pl-6 text-2xl font-semibold text-sage-700">
-                There is no single right way to have a meaningful day.
-              </blockquote>
-            </div>
-
-            <div className="space-y-5 text-lg text-ink-700 lg:pt-2">
-              <p>
-                What matters is having choices, being included, and
-                continuing to treat adults like adults. We don&rsquo;t
-                expect someone experiencing cognitive change to do all the
-                adapting.
-              </p>
-              <blockquote className="border-l-4 border-terracotta-500 pl-6 text-2xl font-semibold text-sage-700">
-                It&rsquo;s our job to meet them where they are.
-              </blockquote>
-              <p>
-                Our goal is for members to have somewhere meaningful to go,
-                and for their families to have dependable time for
-                everything else life requires. Both people should get
-                something valuable from the day.
-              </p>
-            </div>
+          <div className="mt-8 max-w-2xl space-y-5 text-lg text-ink-700">
+            <p>
+              People living with cognitive change are too often defined by
+              what they can no longer do. We want to start with what they
+              can: understanding the person in front of us, adapting how we
+              communicate, and creating an environment that supports who
+              they are.
+            </p>
+            <p>
+              Some days that might mean creating, moving, helping, talking,
+              or trying something new. Other days it might mean a cup of
+              coffee, music, a walk, or simply enjoying the company of other
+              people.
+            </p>
           </div>
+
+          <blockquote className="mt-8 max-w-2xl border-l-4 border-terracotta-500 pl-6 text-2xl font-semibold text-sage-700 sm:text-3xl">
+            There is no single right way to have a meaningful day.
+          </blockquote>
+
+          <div className="mt-8 max-w-2xl space-y-5 text-lg text-ink-700">
+            <p>
+              What matters is having choices, being included, and continuing
+              to treat adults like adults. We don&rsquo;t expect someone
+              experiencing cognitive change to do all the adapting.
+            </p>
+          </div>
+
+          <blockquote className="mt-8 max-w-2xl border-l-4 border-terracotta-500 pl-6 text-2xl font-semibold text-sage-700 sm:text-3xl">
+            It&rsquo;s our job to meet them where they are.
+          </blockquote>
+
+          <p className="mt-8 max-w-2xl text-lg text-ink-700">
+            Our goal is for members to have somewhere meaningful to go, and
+            for their families to have dependable time for everything else
+            life requires. Both people should get something valuable from
+            the day.
+          </p>
 
           <div className="mt-14 max-w-2xl border-t border-ink-500/15 pt-10">
             <p className="text-base font-medium uppercase tracking-wide text-ink-500">
