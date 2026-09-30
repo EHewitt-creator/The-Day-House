@@ -27,8 +27,12 @@ const DETAILS: { term: string; description: string }[] = [
   },
   {
     term: "Included",
+    description: "Programming, a catered lunch, and snacks",
+  },
+  {
+    term: "Toileting support",
     description:
-      "Programming, a catered lunch, snacks, scheduled toileting, and bathroom assistance within program scope",
+      "Individualized toileting schedules and bathroom assistance as needed. Members must be able to bear weight and assist with transfers.",
   },
   {
     term: "Participant fit",
@@ -36,8 +40,9 @@ const DETAILS: { term: string; description: string }[] = [
       "Participants must be able to bear weight for supported transfers and participate safely in a shared setting. Fit will be assessed individually.",
   },
   {
-    term: "Medications",
-    description: "Medication administration and reminders will not be available at launch",
+    term: "Medication support",
+    description:
+      "Assistance with self-administered medications based on each member’s care plan. Medication administration will not be offered at launch.",
   },
   {
     term: "Transportation",
