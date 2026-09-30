@@ -34,13 +34,37 @@
  */
 
 const NOTIFY_EMAILS = {
-  "Family Leads": "info@yourdayhouse.com",
+  // info@yourdayhouse.com is a Google Groups alias with Collaborative Inbox
+  // on, so mail sent to it never lands in a member's personal Gmail Inbox,
+  // it only shows up in All Mail with no Inbox label. Pointed straight at
+  // Elvina's real mailbox for now (2026-09) so notifications are actually
+  // seen; switch this back to info@yourdayhouse.com once that alias is
+  // reconfigured to deliver normally (or once there's a real shared inbox
+  // set up for it).
+  "Family Leads": "elvina@yourdayhouse.com",
   "Career Leads": "careers@yourdayhouse.com",
   "Contact Messages": "info@yourdayhouse.com",
   "Survey Responses": "info@yourdayhouse.com",
 };
 
 const RESUME_FOLDER_NAME = "The Day House — Resumes";
+
+// Every timestamp this script writes (the "Submitted At" column on all four
+// lead tabs, and the "Timestamp" column on the Email Log tab) is formatted
+// into Mountain Time here, rather than left as the raw UTC ISO string the
+// browser sends (e.g. "2026-09-30T18:42:00.000Z", which reads as the wrong
+// time of day at a glance). "America/Denver" is used specifically because
+// it follows Mountain daylight saving automatically — this always shows the
+// correct local Boise-area time, MDT in summer and MST in winter, without
+// needing to change anything twice a year. `rawValue` is the ISO string the
+// browser sent as body.submittedAt (the moment the visitor actually
+// submitted); if it's missing for any reason, this falls back to the
+// instant the script received the request, which is normally only a
+// fraction of a second later.
+function formatSubmittedAt(rawValue) {
+  const date = rawValue ? new Date(rawValue) : new Date();
+  return Utilities.formatDate(date, "America/Denver", "MM/dd/yyyy hh:mm:ss a") + " MT";
+}
 
 // "Family Leads" columns 1-23 are the original layout and are intentionally
 // left completely untouched below — same labels, same order — including
@@ -189,7 +213,7 @@ function buildFamilyLeadRow(body) {
   const utm = body.utm || {};
 
   return [
-    body.submittedAt || new Date().toISOString(),
+    formatSubmittedAt(body.submittedAt),
     step1.fullName || "",
     step1.email || "",
     step1.phone || "",
@@ -250,7 +274,7 @@ function buildCareerLeadRow(body) {
   }
 
   return [
-    body.submittedAt || new Date().toISOString(),
+    formatSubmittedAt(body.submittedAt),
     body.name || "",
     body.email || "",
     body.phone || "",
@@ -276,7 +300,7 @@ function buildSurveyRow(body) {
   const utm = body.utm || {};
 
   return [
-    body.submittedAt || new Date().toISOString(),
+    formatSubmittedAt(body.submittedAt),
     body.name || "",
     body.email || "",
     body.phone || "",
@@ -306,7 +330,7 @@ function buildSurveyRow(body) {
 function buildContactRow(body) {
   const utm = body.utm || {};
   return [
-    body.submittedAt || new Date().toISOString(),
+    formatSubmittedAt(body.submittedAt),
     body.name || "",
     body.email || "",
     body.phone || "",
@@ -393,10 +417,52 @@ function sendNotificationEmail(sheetName, body) {
       sheetName +
       ")";
 
+    // MailApp has a daily sending quota (100/day on a plain Gmail account,
+    // 1500/day on Workspace). Logging the remaining quota before every send
+    // means a quota-exhaustion failure shows up clearly in Executions
+    // instead of looking identical to any other silent failure.
+    const remainingQuota = MailApp.getRemainingDailyQuota();
+    Logger.log(
+      "[sendNotificationEmail] sending \"" + subject + "\" to " + recipients +
+      " (remaining daily quota: " + remainingQuota + ")"
+    );
+
     MailApp.sendEmail(recipients, subject, message);
+
+    Logger.log("[sendNotificationEmail] sent successfully to " + recipients);
+    logEmailAttempt(sheetName, recipients, "Sent", "Remaining daily quota: " + remainingQuota);
   } catch (err) {
-    // Don't let a notification failure block the submission from being
-    // recorded — the row is already saved at this point either way.
+    // Still don't let a notification failure block the submission from
+    // being recorded — the row is already saved at this point either way.
+    // But record the real error somewhere visible. Before this, every run
+    // looked like "Completed" in Executions whether the email sent or not,
+    // and Executions' own log view has proven unreliable to get to in
+    // practice — so this writes straight to a sheet tab instead, which is
+    // just as visible as any other row in this spreadsheet.
+    Logger.log("[sendNotificationEmail] FAILED to send to " + recipients + ": " + String(err));
+    logEmailAttempt(sheetName, recipients, "FAILED", String(err));
+  }
+}
+
+// Writes one row per email attempt (success or failure) to a dedicated
+// "Email Log" tab, created automatically the first time this runs. This is
+// deliberately separate from the "Sent"/"FAILED" Logger.log lines above —
+// Apps Script's own Executions log view can be hard to get to depending on
+// the browser/account, but a spreadsheet tab is just as visible as any
+// other row you already know how to check.
+function logEmailAttempt(sheetName, recipients, status, detail) {
+  try {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    let logSheet = ss.getSheetByName("Email Log");
+    if (!logSheet) {
+      logSheet = ss.insertSheet("Email Log");
+      logSheet.appendRow(["Timestamp", "Source Tab", "Recipients", "Status", "Detail"]);
+      logSheet.setFrozenRows(1);
+    }
+    logSheet.appendRow([formatSubmittedAt(), sheetName, recipients, status, detail]);
+  } catch (err) {
+    // If writing the log itself fails, there's nothing further we can
+    // safely do here without risking the original submission.
   }
 }
 
