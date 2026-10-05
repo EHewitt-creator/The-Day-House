@@ -77,8 +77,8 @@ export default function HomePage() {
       <Hero />
       <OurApproach />
       <ProgramDetails />
-      <FamilyInterestSection />
       <FounderLine />
+      <FamilyInterestSection />
       <MobileStickyCta />
     </>
   );

@@ -26,8 +26,9 @@ export default function OurApproach() {
               shared meals, conversation, or a quieter pace.
             </p>
             <p>
-              The environment and support are designed around what each
-              person can do, enjoy, and contribute. That means a more
+              Everything is designed around what each person can do, enjoy,
+              and contribute, so The Day House feels like somewhere worth
+              going, not simply somewhere they need to be. That means a more
               engaging day for members and dependable time away for family
               caregivers.
             </p>
