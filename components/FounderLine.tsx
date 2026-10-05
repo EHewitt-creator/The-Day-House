@@ -12,10 +12,15 @@ import founderPhoto from "@/public/founders/elvina-and-robbin-home.jpg";
 // elvina-and-robbin-home.jpg), distinct from the more candid outdoor shot
 // used on /about (elvina-and-robbin.jpg). Two columns from md: up, photo
 // first and roughly 40% of the row; stacked, photo on top, below md:.
+// Deliberately NOT wrapped in its own mx-auto/max-w block — that nested
+// centering made the whole section look like a narrow island floating in
+// the middle of the page instead of lining up with the left edge of
+// Program Details above it. It now just fills the standard .section
+// width like every other section on the page.
 export default function FounderLine() {
   return (
     <div className="section !py-10 sm:!py-12">
-      <div className="mx-auto grid max-w-4xl items-center gap-8 md:grid-cols-[2fr_3fr] md:gap-12 md:text-left">
+      <div className="grid items-center gap-8 md:grid-cols-[2fr_3fr] md:gap-12 md:text-left">
         <Image
           src={founderPhoto}
           alt="Elvina and Robbin Hewitt, founders of The Day House"
