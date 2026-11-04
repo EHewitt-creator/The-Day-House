@@ -19,11 +19,13 @@ const DETAILS: { term: string; description: string }[] = [
   },
   {
     term: "Core hours",
-    description: "9:00 AM–4:30 PM",
+    description:
+      "Weekdays, 8:30 AM–5:30 PM. Full-day support designed to give members a meaningful day and caregivers dependable time for work, appointments, rest, and everything else life requires.",
   },
   {
     term: "Daily rate",
-    description: "Anticipated at $200 per full day",
+    description:
+      "Anticipated at $200 per full day. One flat daily rate for up to nine hours of daytime support, including meaningful programming, movement, social connection, a catered lunch, snacks, and individualized assistance.",
   },
   {
     term: "Included",
