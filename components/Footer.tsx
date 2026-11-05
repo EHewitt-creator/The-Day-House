@@ -15,6 +15,14 @@ export default function Footer() {
             <p className="mt-3 text-sm font-semibold tracking-wide text-terracotta-400">
               Coming soon to the Boise metro area, Idaho
             </p>
+            <p className="mt-2 max-w-sm break-words text-base text-cream-100/80">
+              <a
+                href="mailto:info@yourdayhouse.com"
+                className="inline-block py-2.5 underline-offset-4 hover:text-terracotta-400 hover:underline"
+              >
+                info@yourdayhouse.com
+              </a>
+            </p>
           </div>
 
           {/* "Explore" and "Legal" are visual labels for these link groups,

@@ -5,13 +5,16 @@ import Link from "next/link";
 import Logo from "@/components/Logo";
 import { track } from "@/lib/analytics";
 
-// Careers and Contact remain reachable from the footer on every page — see
-// Footer.tsx's "Explore" list — so they're deliberately left out of this
-// primary nav to keep it focused on the homepage's own sections plus About.
+// Careers remains reachable from the footer only — see Footer.tsx's
+// "Explore" list — kept out of this primary nav to keep it focused on the
+// homepage's own sections plus About and Contact. Contact added 2026-11
+// right after About, styled as a plain nav link like its neighbors, not a
+// second button (Join Our Interest List stays the only CTA here).
 const NAV_LINKS = [
   { href: "/#approach", label: "Our Approach" },
   { href: "/#details", label: "Program Details" },
   { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function Nav() {
