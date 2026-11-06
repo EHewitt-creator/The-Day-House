@@ -4,6 +4,7 @@ import OurApproach from "@/components/OurApproach";
 import ProgramDetails from "@/components/ProgramDetails";
 import FamilyInterestSection from "@/components/family-interest/FamilyInterestSection";
 import FounderLine from "@/components/FounderLine";
+import LaunchRoadmap from "@/components/LaunchRoadmap";
 import MobileStickyCta from "@/components/MobileStickyCta";
 import { SITE_NAME, SITE_URL } from "@/lib/seo";
 
@@ -78,6 +79,7 @@ export default function HomePage() {
       <OurApproach />
       <ProgramDetails />
       <FounderLine />
+      <LaunchRoadmap />
       <FamilyInterestSection />
       <MobileStickyCta />
     </>
