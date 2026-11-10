@@ -30,9 +30,9 @@ const DETAILS_BEFORE: { term: string; description: string }[] = [
 
 const DETAILS_AFTER: { term: string; description: string }[] = [
   {
-    term: "Toileting support",
+    term: "Personal care",
     description:
-      "Individualized toileting schedules and bathroom assistance as needed. Members must be able to bear weight and assist with transfers.",
+      "We provide gentle support with daily needs like toileting and eating as needed, always with dignity and respect.",
   },
   {
     term: "Participant fit",
