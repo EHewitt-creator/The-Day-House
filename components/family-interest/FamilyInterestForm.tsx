@@ -27,10 +27,8 @@ const emptyStepOne: StepOneType = {
 const emptyStepTwo: StepTwoType = {
   preferredWeekdays: [],
   preferredWeekdaysNotSure: false,
-  preferredStartTime: "",
-  preferredStartTimeOther: "",
-  preferredStandardPickupTime: "",
-  preferredStandardPickupTimeOther: "",
+  schedulePreference: "",
+  schedulePreferenceOther: "",
   extendedPickupFrequency: "",
   realisticUsageAt200: "",
   nonPriceBarriers: [],
@@ -148,8 +146,7 @@ export default function FamilyInterestForm() {
       const answeredScheduleQuestions =
         stepTwo.preferredWeekdays.length > 0 ||
         stepTwo.preferredWeekdaysNotSure ||
-        !!stepTwo.preferredStartTime ||
-        !!stepTwo.preferredStandardPickupTime ||
+        !!stepTwo.schedulePreference ||
         !!stepTwo.extendedPickupFrequency;
       track("survey_complete", {
         survey_version: stepTwo.surveyVersion,

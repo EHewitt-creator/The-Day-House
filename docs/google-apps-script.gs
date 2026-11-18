@@ -81,6 +81,23 @@ function formatSubmittedAt(rawValue) {
 // Leads" tab with real rows in it, add these new column headers (24-32
 // below) to the end of its existing header row before this updated script
 // starts writing rows, so new answers land under the right labels.
+//
+// Same pattern again for 2026-11 ("2026-09-hours-pricing-v1" ->
+// "2026-11-hours-pricing-v2"): columns 26-27 ("Preferred Start Time",
+// "Preferred Standard Pickup Time") are retired the same way — left in
+// place, left blank going forward, never renamed or removed — because the
+// new survey replaced them with one merged question instead (see
+// lib/formOptions.ts SURVEY_VERSION v2 comment for why). Column 33
+// ("Schedule Preference") is appended below to hold that merged question's
+// answers. Columns 28 ("Extended Pickup Frequency (5:30 PM)") and 29
+// ("Realistic Usage At $200/Day") are NOT new or retired — they keep
+// collecting answers under their original header text, since the
+// underlying field and answer scale didn't change, only the on-page
+// question wording around them did (see FamilyInterestStepTwo.tsx). The
+// "Survey Version" column on every row is what tells old answers in those
+// two columns apart from new ones if that distinction ever matters. If you
+// already have a live "Family Leads" tab, add "Schedule Preference" to the
+// end of its existing header row the same way.
 const HEADERS = {
   "Family Leads": [
     "Submitted At",
@@ -115,6 +132,7 @@ const HEADERS = {
     "Non-Price Barriers",
     "Confidence Requirement",
     "Willing To Talk (Survey v2)",
+    "Schedule Preference",
   ],
   "Career Leads": [
     "Submitted At",
@@ -162,6 +180,7 @@ const HEADERS = {
     "UTM Medium",
     "UTM Campaign",
     "UTM Content",
+    "Schedule Preference",
   ],
 };
 
@@ -238,21 +257,27 @@ function buildFamilyLeadRow(body) {
     utm.utm_content || "",
     step2.surveyVersion || "",
     weekdaysSummary(step2),
-    step2.preferredStartTime
-      ? step2.preferredStartTime +
-        (step2.preferredStartTimeOther ? " (" + step2.preferredStartTimeOther + ")" : "")
-      : "",
-    step2.preferredStandardPickupTime
-      ? step2.preferredStandardPickupTime +
-        (step2.preferredStandardPickupTimeOther ? " (" + step2.preferredStandardPickupTimeOther + ")" : "")
-      : "",
+    "", // Preferred Start Time — retired with the 2026-11 survey, left blank going forward
+    "", // Preferred Standard Pickup Time — retired with the 2026-11 survey, left blank going forward
     step2.extendedPickupFrequency || "",
     step2.realisticUsageAt200 || "",
     (step2.nonPriceBarriers || []).join(", ") +
       (step2.nonPriceBarriersOther ? " (" + step2.nonPriceBarriersOther + ")" : ""),
     step2.confidenceRequirement || "",
     step2.willingToTalk || "",
+    schedulePreferenceSummary(step2),
   ];
+}
+
+// schedulePreference + its free-text "other" answer folded into one cell,
+// same pattern the old preferredStartTime/preferredStandardPickupTime
+// fields used.
+function schedulePreferenceSummary(step2) {
+  if (!step2.schedulePreference) return "";
+  return (
+    step2.schedulePreference +
+    (step2.schedulePreferenceOther ? " (" + step2.schedulePreferenceOther + ")" : "")
+  );
 }
 
 // "I'm not sure yet" is stored as its own boolean (preferredWeekdaysNotSure)
@@ -306,14 +331,8 @@ function buildSurveyRow(body) {
     body.phone || "",
     survey.surveyVersion || "",
     weekdaysSummary(survey),
-    survey.preferredStartTime
-      ? survey.preferredStartTime +
-        (survey.preferredStartTimeOther ? " (" + survey.preferredStartTimeOther + ")" : "")
-      : "",
-    survey.preferredStandardPickupTime
-      ? survey.preferredStandardPickupTime +
-        (survey.preferredStandardPickupTimeOther ? " (" + survey.preferredStandardPickupTimeOther + ")" : "")
-      : "",
+    "", // Preferred Start Time — retired with the 2026-11 survey, left blank going forward
+    "", // Preferred Standard Pickup Time — retired with the 2026-11 survey, left blank going forward
     survey.extendedPickupFrequency || "",
     survey.realisticUsageAt200 || "",
     (survey.nonPriceBarriers || []).join(", ") +
@@ -324,6 +343,7 @@ function buildSurveyRow(body) {
     utm.utm_medium || "",
     utm.utm_campaign || "",
     utm.utm_content || "",
+    schedulePreferenceSummary(survey),
   ];
 }
 

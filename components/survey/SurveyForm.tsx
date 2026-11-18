@@ -11,10 +11,8 @@ import type { FamilyInterestStepTwo as StepTwoType, StandaloneSurveyPayload } fr
 const emptySurvey: StepTwoType = {
   preferredWeekdays: [],
   preferredWeekdaysNotSure: false,
-  preferredStartTime: "",
-  preferredStartTimeOther: "",
-  preferredStandardPickupTime: "",
-  preferredStandardPickupTimeOther: "",
+  schedulePreference: "",
+  schedulePreferenceOther: "",
   extendedPickupFrequency: "",
   realisticUsageAt200: "",
   nonPriceBarriers: [],

@@ -21,9 +21,7 @@ export type DaysPerWeekOption = "1" | "2" | "3" | "4" | "5" | "not_sure";
 
 export type PreferredWeekdayOption = "monday" | "tuesday" | "wednesday" | "thursday" | "friday";
 
-export type PreferredStartTimeOption = "8_30_am" | "9_00_am" | "either" | "neither" | "not_sure";
-
-export type PreferredStandardPickupTimeOption = "3_30_pm" | "4_30_pm" | "either" | "neither" | "not_sure";
+export type SchedulePreferenceOption = "full_day" | "half_day" | "either" | "neither" | "not_sure";
 
 export type ExtendedPickupFrequencyOption =
   | "never"
@@ -73,18 +71,16 @@ export type FamilyInterestStepOne = {
 /**
  * Step 2: optional, ~60-90 second market-research survey. Entirely
  * skippable, and every question inside it is independently optional too —
- * see the "2026-09-hours-pricing-v1" survey below for what's asked and why.
- * `surveyVersion` is a fixed constant (see lib/formOptions.ts), not user
- * input, and lets responses to a future revision of this survey stay
- * distinguishable from these in the sheet without touching old rows.
+ * see lib/formOptions.ts (SURVEY_VERSION) for the current revision and why
+ * it changed. `surveyVersion` is a fixed constant (see lib/formOptions.ts),
+ * not user input, and lets responses to a future revision of this survey
+ * stay distinguishable from these in the sheet without touching old rows.
  */
 export type FamilyInterestStepTwo = {
   preferredWeekdays: PreferredWeekdayOption[];
   preferredWeekdaysNotSure: boolean;
-  preferredStartTime: PreferredStartTimeOption | "";
-  preferredStartTimeOther: string;
-  preferredStandardPickupTime: PreferredStandardPickupTimeOption | "";
-  preferredStandardPickupTimeOther: string;
+  schedulePreference: SchedulePreferenceOption | "";
+  schedulePreferenceOther: string;
   extendedPickupFrequency: ExtendedPickupFrequencyOption | "";
   realisticUsageAt200: RealisticUsageAt200Option | "";
   nonPriceBarriers: NonPriceBarrierOption[];

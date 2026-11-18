@@ -8,8 +8,7 @@ import type {
 } from "@/types/leads";
 import {
   PREFERRED_WEEKDAY_OPTIONS,
-  PREFERRED_START_TIME_OPTIONS,
-  PREFERRED_STANDARD_PICKUP_TIME_OPTIONS,
+  SCHEDULE_PREFERENCE_OPTIONS,
   EXTENDED_PICKUP_FREQUENCY_OPTIONS,
   REALISTIC_USAGE_AT_200_OPTIONS,
   NON_PRICE_BARRIER_OPTIONS,
@@ -33,20 +32,15 @@ const OPTION_ROW_INACTIVE = "border-ink/10 bg-cream-50";
 const OPTION_ROW_DISABLED = "cursor-not-allowed opacity-50";
 
 export default function FamilyInterestStepTwo({ value, onChange }: Props) {
-  const startTimeOtherRef = useRef<HTMLInputElement>(null);
-  const pickupTimeOtherRef = useRef<HTMLInputElement>(null);
+  const scheduleOtherRef = useRef<HTMLInputElement>(null);
   const barriersOtherRef = useRef<HTMLInputElement>(null);
 
   // Move focus onto a conditional field the moment it appears, so keyboard
   // and screen-reader users land somewhere sensible instead of having to
   // hunt for the new field that just showed up below the option they chose.
   useEffect(() => {
-    if (value.preferredStartTime === "neither") startTimeOtherRef.current?.focus();
-  }, [value.preferredStartTime]);
-
-  useEffect(() => {
-    if (value.preferredStandardPickupTime === "neither") pickupTimeOtherRef.current?.focus();
-  }, [value.preferredStandardPickupTime]);
+    if (value.schedulePreference === "neither") scheduleOtherRef.current?.focus();
+  }, [value.schedulePreference]);
 
   useEffect(() => {
     if (value.nonPriceBarriers.includes("other")) barriersOtherRef.current?.focus();
@@ -68,17 +62,10 @@ export default function FamilyInterestStepTwo({ value, onChange }: Props) {
     );
   }
 
-  function selectStartTime(val: FamilyInterestStepTwo["preferredStartTime"]) {
+  function selectSchedulePreference(val: FamilyInterestStepTwo["schedulePreference"]) {
     onChange({
-      preferredStartTime: val,
-      ...(val !== "neither" ? { preferredStartTimeOther: "" } : {}),
-    });
-  }
-
-  function selectPickupTime(val: FamilyInterestStepTwo["preferredStandardPickupTime"]) {
-    onChange({
-      preferredStandardPickupTime: val,
-      ...(val !== "neither" ? { preferredStandardPickupTimeOther: "" } : {}),
+      schedulePreference: val,
+      ...(val !== "neither" ? { schedulePreferenceOther: "" } : {}),
     });
   }
 
@@ -136,14 +123,18 @@ export default function FamilyInterestStepTwo({ value, onChange }: Props) {
         </div>
       </fieldset>
 
-      {/* Question 2: preferred start time */}
+      {/* Question 2: schedule preference. Replaces the old separate
+          "preferred start time" / "preferred standard pickup time"
+          questions (see lib/formOptions.ts SURVEY_VERSION v2 comment) now
+          that Full Day and Half Day are two fixed start+end packages rather
+          than independently adjustable times. */}
       <fieldset>
         <legend className="field-label">
-          Which standard start time would work best for your family?
+          Which option fits your family&rsquo;s schedule best?
         </legend>
         <div className="space-y-2">
-          {PREFERRED_START_TIME_OPTIONS.map((opt) => {
-            const active = value.preferredStartTime === opt.value;
+          {SCHEDULE_PREFERENCE_OPTIONS.map((opt) => {
+            const active = value.schedulePreference === opt.value;
             return (
               <label
                 key={opt.value}
@@ -151,79 +142,43 @@ export default function FamilyInterestStepTwo({ value, onChange }: Props) {
               >
                 <input
                   type="radio"
-                  name="preferredStartTime"
+                  name="schedulePreference"
                   className="mt-0.5 h-5 w-5 shrink-0 border-ink/30 text-sage-600 focus:ring-sage-500"
                   checked={active}
-                  onChange={() => selectStartTime(opt.value)}
+                  onChange={() => selectSchedulePreference(opt.value)}
                 />
                 <span className="font-medium">{opt.label}</span>
               </label>
             );
           })}
         </div>
-        {value.preferredStartTime === "neither" && (
+        {value.schedulePreference === "neither" && (
           <div className="mt-3">
-            <label htmlFor="preferredStartTimeOther" className="field-label">
-              What start time would work better?
+            <label htmlFor="schedulePreferenceOther" className="field-label">
+              What would work better for your family?
             </label>
             <input
-              ref={startTimeOtherRef}
-              id="preferredStartTimeOther"
+              ref={scheduleOtherRef}
+              id="schedulePreferenceOther"
               type="text"
               className="field-input"
-              value={value.preferredStartTimeOther}
-              onChange={(e) => onChange({ preferredStartTimeOther: e.target.value })}
+              value={value.schedulePreferenceOther}
+              onChange={(e) => onChange({ schedulePreferenceOther: e.target.value })}
             />
           </div>
         )}
       </fieldset>
 
-      {/* Question 3: preferred standard pickup time */}
+      {/* Question 3: extended-hours demand. extendedPickupFrequency keeps
+          its field name and answer scale (see lib/formOptions.ts) — only
+          this question's premise changed, from "pickup until 5:30 PM" as a
+          premium ask (back when 5:30 PM wasn't the standard Full Day end
+          time) to the actual current add-on: extra hours beyond a chosen
+          option, billed hourly up to the Full Day rate. */}
       <fieldset>
         <legend className="field-label">
-          Which standard pickup time would work best for your family?
-        </legend>
-        <div className="space-y-2">
-          {PREFERRED_STANDARD_PICKUP_TIME_OPTIONS.map((opt) => {
-            const active = value.preferredStandardPickupTime === opt.value;
-            return (
-              <label
-                key={opt.value}
-                className={`${OPTION_ROW} cursor-pointer ${active ? OPTION_ROW_ACTIVE : OPTION_ROW_INACTIVE}`}
-              >
-                <input
-                  type="radio"
-                  name="preferredStandardPickupTime"
-                  className="mt-0.5 h-5 w-5 shrink-0 border-ink/30 text-sage-600 focus:ring-sage-500"
-                  checked={active}
-                  onChange={() => selectPickupTime(opt.value)}
-                />
-                <span className="font-medium">{opt.label}</span>
-              </label>
-            );
-          })}
-        </div>
-        {value.preferredStandardPickupTime === "neither" && (
-          <div className="mt-3">
-            <label htmlFor="preferredStandardPickupTimeOther" className="field-label">
-              What pickup time would work better?
-            </label>
-            <input
-              ref={pickupTimeOtherRef}
-              id="preferredStandardPickupTimeOther"
-              type="text"
-              className="field-input"
-              value={value.preferredStandardPickupTimeOther}
-              onChange={(e) => onChange({ preferredStandardPickupTimeOther: e.target.value })}
-            />
-          </div>
-        )}
-      </fieldset>
-
-      {/* Question 4: extended pickup demand */}
-      <fieldset>
-        <legend className="field-label">
-          How often would you need pickup available until 5:30 PM?
+          If you chose Half Day, how often would you want to add extra hours
+          (at $25/hour, up to the Full Day rate)?
         </legend>
         <div className="space-y-2">
           {EXTENDED_PICKUP_FREQUENCY_OPTIONS.map((opt) => {
@@ -247,12 +202,15 @@ export default function FamilyInterestStepTwo({ value, onChange }: Props) {
         </div>
       </fieldset>
 
-      {/* Question 5: realistic utilization at $200/day */}
+      {/* Question 4: realistic utilization at current pricing.
+          realisticUsageAt200 also keeps its field name and answer scale —
+          only the preamble below now names both prices instead of just
+          the old flat $200/day. */}
       <fieldset>
         <legend className="field-label">
-          The anticipated price is approximately $200 per full day. At this
-          price, how often could your family realistically use The Day
-          House?
+          The anticipated price is $200 per full day or $125 per half day.
+          At these prices, how often could your family realistically use
+          The Day House?
         </legend>
         <div className="mt-3 space-y-2">
           {REALISTIC_USAGE_AT_200_OPTIONS.map((opt) => {
@@ -276,7 +234,7 @@ export default function FamilyInterestStepTwo({ value, onChange }: Props) {
         </div>
       </fieldset>
 
-      {/* Question 6: non-price barriers */}
+      {/* Question 5: non-price barriers */}
       <fieldset>
         <legend className="field-label">
           Other than price, what could make it difficult for your family to
@@ -328,7 +286,7 @@ export default function FamilyInterestStepTwo({ value, onChange }: Props) {
         )}
       </fieldset>
 
-      {/* Question 7: trust requirement */}
+      {/* Question 6: trust requirement */}
       <div>
         <label htmlFor="confidenceRequirement" className="field-label">
           What is the one thing that would make you feel confident that your

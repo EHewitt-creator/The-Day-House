@@ -20,12 +20,26 @@ export const DAYS_PER_WEEK_OPTIONS = [
   { value: "not_sure", label: "Not sure" },
 ] as const;
 
-// Step 2 survey, revision "2026-09-hours-pricing-v1" — see types/leads.ts
+// Step 2 survey, revision "2026-11-hours-pricing-v2" — see types/leads.ts
 // for the payload shape and docs/google-apps-script.gs for how each field
 // lands in the sheet. Bump SURVEY_VERSION (and treat it as a new, additive
 // revision rather than editing these in place) if the questions change
 // again after real responses exist.
-export const SURVEY_VERSION = "2026-09-hours-pricing-v1" as const;
+//
+// v2 (2026-11) replaces the old independent "preferred start time" /
+// "preferred standard pickup time" questions (PREFERRED_START_TIME_OPTIONS /
+// PREFERRED_STANDARD_PICKUP_TIME_OPTIONS, removed here) with one
+// SCHEDULE_PREFERENCE_OPTIONS question below. Those two were only ever
+// meaningful back when the business was still deciding between independent
+// start/end times for a single program; now that Full Day (8:30 AM–5:30 PM)
+// and Half Day (10:00 AM–2:00 PM) are two fixed packages, asking the times
+// separately could record combinations that don't actually exist (e.g. an
+// 8:30 AM start with a 2:00 PM pickup). EXTENDED_PICKUP_FREQUENCY_OPTIONS
+// and REALISTIC_USAGE_AT_200_OPTIONS keep their field names and value sets —
+// only the on-page question text around them changed (see
+// FamilyInterestStepTwo.tsx) — since their answer scales still mean the
+// same thing after the pricing update.
+export const SURVEY_VERSION = "2026-11-hours-pricing-v2" as const;
 
 export const PREFERRED_WEEKDAY_OPTIONS = [
   { value: "monday", label: "Monday" },
@@ -35,19 +49,11 @@ export const PREFERRED_WEEKDAY_OPTIONS = [
   { value: "friday", label: "Friday" },
 ] as const;
 
-export const PREFERRED_START_TIME_OPTIONS = [
-  { value: "8_30_am", label: "8:30 AM" },
-  { value: "9_00_am", label: "9:00 AM" },
+export const SCHEDULE_PREFERENCE_OPTIONS = [
+  { value: "full_day", label: "Full Day (8:30 AM–5:30 PM)" },
+  { value: "half_day", label: "Half Day (10:00 AM–2:00 PM)" },
   { value: "either", label: "Either would work" },
-  { value: "neither", label: "Neither would work" },
-  { value: "not_sure", label: "I’m not sure yet" },
-] as const;
-
-export const PREFERRED_STANDARD_PICKUP_TIME_OPTIONS = [
-  { value: "3_30_pm", label: "3:30 PM" },
-  { value: "4_30_pm", label: "4:30 PM" },
-  { value: "either", label: "Either would work" },
-  { value: "neither", label: "Neither would work" },
+  { value: "neither", label: "Neither would work for us" },
   { value: "not_sure", label: "I’m not sure yet" },
 ] as const;
 
